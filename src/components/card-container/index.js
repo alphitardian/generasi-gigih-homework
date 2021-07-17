@@ -8,7 +8,7 @@ function CardContainer({ imgUrl, altImg, trackTitle, artistName, btnName }) {
       <Image src={imgUrl} alt={altImg} />
       <h2 className="TrackTitleText">{trackTitle}</h2>
       <p className="ArtistText">{artistName}</p>
-      <Button name={btnName} />
+      <Button className="SelectBtn" name={btnName} />
     </div>
   );
 }

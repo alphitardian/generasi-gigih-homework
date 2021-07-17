@@ -1,5 +1,7 @@
 .Container {
-  margin: auto;
+  margin-bottom: 2em;
+  margin-left: 1em;
+  margin-right: 1em;
   width: 300px;
   padding: 1em;
   border-radius: 10px;
@@ -10,6 +12,9 @@
   font-weight: bold;
   letter-spacing: 1px;
   margin-bottom: -10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ArtistText {
@@ -17,4 +22,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 35px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

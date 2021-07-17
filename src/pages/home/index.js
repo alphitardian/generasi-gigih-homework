@@ -1,26 +1,28 @@
 import React from "react";
 import { CardContainer } from "../../components/";
-import Data from "../../utils/Data";
+import { playlist } from "../../utils/Data";
+import './style.css'
 
 function Home() {
-  const {
-    name: trackTitle,
-    album: {
-      artists: [{ name: artistName }],
-      images: [{ url: imgUrl }],
-    },
-  } = Data;
+  const playlistData = playlist.map((item, index) => {
+    return (
+      <CardContainer 
+        imgUrl={item.album.images[0].url}
+        altImg="An Album Image"
+        artistName={item.album.artists[0].name}
+        trackTitle={item.name}
+        btnName="Select"
+        key={item.id}
+      />
+    )
+  });
 
   return (
     <div>
       <h1>Create Playlist</h1>
-      <CardContainer
-        imgUrl={imgUrl}
-        altImg="An Album Cover Image"
-        trackTitle={trackTitle}
-        artistName={artistName}
-        btnName="Select"
-      />
+      <div className="TrackList">
+        {playlistData}
+      </div>
     </div>
   );
 }
