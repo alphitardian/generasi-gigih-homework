@@ -17,3 +17,8 @@
 .SelectBtn:active {
   background-color: rgb(212, 57, 0);
 }
+
+a {
+  text-decoration: none;
+  color: white;
+}

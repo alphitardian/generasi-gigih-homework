@@ -1,10 +1,14 @@
 import React from "react";
 import "./style.css";
 
-function Button({ name }) {
+function Button({ name, onClick, link }) {
   return (
     <div>
-      <button className="SelectBtn">{name}</button>
+      <a href={link}>
+        <button className="SelectBtn" onClick={onClick}>
+          {name}
+        </button>
+      </a>
     </div>
   );
 }
