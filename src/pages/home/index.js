@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContainer } from "../../components/";
+import { CardContainer, NavBar, TrackList } from "../../components/";
 import axios from 'axios'
 import './style.css'
 
@@ -8,6 +8,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       query: "",
+      token: "",
       artistList: [],
       trackList: [],
       albumList: []
@@ -45,15 +46,28 @@ class Home extends React.Component {
       albumList: response.data.albums.items
     });
     console.log(response.data);
-    return response.data;
+  }
+
+  checkImageAvailability = (list) => {
+    let image = [];
+    if (list.images.length > 0) {
+      list.images.forEach((item) => {
+        image.push(item.url)
+      })
+    } else {
+      image = ""
+    }
+    return image;
   }
 
   getArtistList = (list) => {
     return list.map((item) => {
+      let image = this.checkImageAvailability(item);
+
       return (
         <CardContainer 
-          imgUrl={item.images[0].url}
-          altImg="An Artist Image"
+          imgUrl={image[0]}
+          altImg={image[0] > 0 ? "An Artist Image" : "No Image Available"}
           artistName={item.type}
           trackTitle={item.name}
           btnName="Follow"
@@ -65,10 +79,12 @@ class Home extends React.Component {
 
   getAlbumList = (list) => {
     return list.map((item) => {
+      let image = this.checkImageAvailability(item);
+
       return (
         <CardContainer 
-          imgUrl={item.images[0].url}
-          altImg="An Album Image"
+          imgUrl={image[0]}
+          altImg={image[0] > 0 ? "An Artist Image" : "No Image Available"}
           artistName={item.artists[0].name}
           trackTitle={item.name}
           btnName="Select"
@@ -82,17 +98,19 @@ class Home extends React.Component {
     return list.map((item) => {
       let artist = "";
       if (item.artists.length > 1) {
-        item.artists.map((value, index) => {
+        item.artists.forEach((value) => {
           artist += `${value.name} ft. `
         })
       } else {
         artist = item.artists[0].name;
       }
 
+      let image = this.checkImageAvailability(item.album);
+
       return (
         <CardContainer 
-          imgUrl={item.album.images[0].url}
-          altImg="An Track Image"
+          imgUrl={image[0]}
+          altImg={image[0] > 0 ? "An Track Image" : "No Image Available"}
           artistName={artist}
           trackTitle={item.name}
           btnName="Select"
@@ -112,28 +130,38 @@ class Home extends React.Component {
     let token = this.getHashParam().access_token;
     let tokenType = this.getHashParam().token_type;
 
-    await this.getApiCall(this.state.query, token, tokenType);
+    this.setState({
+      token
+    });
+
+    if (this.state.query === "") {
+      alert("Please fill the search input first");
+    } else {
+      await this.getApiCall(this.state.query, this.state.token, tokenType);
+    }
   }
 
   render() {
+    let condition;
+    if (this.state.artistList.length > 0) {
+      condition = () => {
+        return (
+          <div>
+            <TrackList title="Artists" list={this.getArtistList(this.state.artistList)}/>
+            <TrackList title="Albums" list={this.getAlbumList(this.state.albumList)}/>
+            <TrackList title="Tracks" list={this.getTrackList(this.state.trackList)}/>
+          </div>
+        );
+      }
+    } else {
+      condition = () => <h1 className="NoDataPlaceholder">No Data Available</h1>
+    }
+
     return (
       <div>
-        <h1>Create Playlist</h1>
-        <div className="form">
-            <input type="text" placeholder="Type Here" onChange={this.handleChange} value={this.state.query}/>
-            <button onClick={this.handleClick}>Search</button>
-          </div>
-        <h2>Artists</h2>
-        <div className="TrackList">  
-          {this.getArtistList(this.state.artistList)}
-        </div>
-        <h2>Albums</h2>
-        <div className="TrackList">
-          {this.getAlbumList(this.state.albumList)}
-        </div>
-        <h2>Tracks</h2>
-        <div className="TrackList">
-          {this.getTrackList(this.state.trackList)}
+        <NavBar handleChange={this.handleChange} inputValue={this.state.query} handleClick={this.handleClick}/>
+        <div className="SearchResult">
+          { condition() }
         </div>
       </div>
     );

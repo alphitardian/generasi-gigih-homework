@@ -1,0 +1,45 @@
+.Form {
+  display: flex;
+  flex-direction: row;
+  margin-right: 1em;
+}
+
+.FormButton {
+  width: 10em;
+  margin-left: 1em;
+  margin-right: 1em;
+  height: 40px;
+  border-radius: 10px;
+  background-color: orangered;
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 800;
+  border: 0;
+}
+
+.FormButton:hover {
+  background-color: rgb(231, 62, 0);
+}
+
+.FormButton:active {
+  background-color: rgb(212, 57, 0);
+}
+
+input {
+  width: 300px;
+  border-radius: 10px;
+  margin-left: 1em;
+  outline: none;
+  padding-left: 1em;
+  border: 1px solid grey;
+}
+
+input[type="text"]:focus {
+  border-radius: 10px;
+  border: 1px solid orangered;
+}
+
+::placeholder {
+  font-style: italic;
+}
