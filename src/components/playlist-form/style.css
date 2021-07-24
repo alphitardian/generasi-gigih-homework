@@ -1,0 +1,37 @@
+.PlaylistForm {
+  text-align: center;
+}
+
+.InputForm {
+  width: 20%;
+  height: 30px;
+  margin-right: 1em;
+  border-radius: 10px;
+  outline: none;
+  padding-left: 1em;
+  border: 1px solid grey;
+}
+
+.InputForm[type="text"]:focus {
+  border-radius: 10px;
+  border: 1px solid orangered;
+}
+
+.CreateButton {
+  background-color: orangered;
+  height: 30px;
+  border: none;
+  color: white;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.CreateButton:hover {
+  background-color: rgb(231, 62, 0);
+}
+
+.CreateButton:active {
+  background-color: rgb(212, 57, 0);
+}

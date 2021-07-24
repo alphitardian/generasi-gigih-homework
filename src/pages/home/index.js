@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { CardContainer, NavBar, TrackList } from "../../components/";
+import {
+  CardContainer,
+  NavBar,
+  TrackList,
+  PlaylistForm,
+} from "../../components/";
 import axios from "axios";
 import "./style.css";
 
@@ -7,9 +12,17 @@ function Home() {
   const [query, setQuery] = useState("");
   const [token, setToken] = useState("");
   const [tokenType, setTokenType] = useState("");
-  const [artistList, setArtistList] = useState([]);
+
+  const [userId, setUserId] = useState("");
+
+  const [isFormActive, setFormActive] = useState(false);
+  const [inputValue, setInputValue] = useState({
+    titlePlaylist: "",
+    descPlaylist: "",
+  });
+
   const [trackList, setTrackList] = useState([]);
-  const [albumList, setAlbumList] = useState([]);
+  const [selectedUri, setSelectedUri] = useState([]);
   const [selectedList, setSelectedList] = useState([]);
 
   useEffect(() => {
@@ -17,13 +30,20 @@ function Home() {
     setTokenType(getHashParam().get("token_type"));
   }, []);
 
-  const getHashParam = () => {
-    let hashUrl = document.location.hash.substr(1);
-    let hashComponent = new URLSearchParams(hashUrl);
-    return hashComponent;
+  // API Call
+  const getUserId = async () => {
+    const response = await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `${tokenType} ${token}`,
+      },
+    });
+
+    setUserId(response.data.id);
+
+    console.log(response.data.id);
   };
 
-  const getApiCall = async (query, token, tokenType) => {
+  const searchTrack = async (query, token, tokenType) => {
     const response = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
         Authorization: `${tokenType} ${token}`,
@@ -33,120 +53,126 @@ function Home() {
       params: {
         q: query,
         type: "album,track,artist",
-        limit: 5,
+        limit: 10,
       },
     });
 
-    setArtistList([...artistList, ...response.data.artists.items]);
-    setTrackList([...trackList, ...response.data.tracks.items]);
-    setAlbumList([...albumList, ...response.data.albums.items]);
+    setTrackList([...response.data.tracks.items]);
+    setQuery("");
 
-    console.log(response.data);
+    console.log(response.data.tracks.items);
   };
 
-  const checkImageAvailability = (list) => {
-    let image = [];
-    if (list.images.length > 0) {
-      list.images.forEach((item) => {
-        image.push(item.url);
-      });
+  const createPlaylist = async () => {
+    const data = {
+      name: inputValue.titlePlaylist,
+      public: false,
+      collaborative: false,
+      description: inputValue.descPlaylist,
+    };
+
+    const config = {
+      headers: {
+        Authorization: `${tokenType} ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await axios.post(
+      `https://api.spotify.com/v1/users/${userId}/playlists`,
+      data,
+      config
+    );
+
+    setInputValue({
+      titlePlaylist: "",
+      descPlaylist: "",
+    });
+    addItemToPlaylist(response.data.id);
+    alert(`${inputValue.titlePlaylist} Playlist added successfully!`);
+  };
+
+  const addItemToPlaylist = async (playlistId) => {
+    const data = {
+      uris: selectedUri,
+    };
+    const config = {
+      headers: {
+        Authorization: `${tokenType} ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await axios.post(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      data,
+      config
+    );
+
+    console.log(response);
+  };
+
+  // Handle Input change
+  const handleChange = (event) => setQuery(event.target.value);
+
+  const handleOnChangePlaylist = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
+  };
+
+  // Handle onClick / Submit
+  const handleSubmit = async () => {
+    if (query === "") {
+      alert("Please fill the search input first");
     } else {
-      image = "";
+      const keyword = query.replace(" ", "+");
+      await searchTrack(keyword, token, tokenType);
     }
-    return image;
   };
 
-  const addToSelected = (data, imageurl) => {
-    let arr = [];
+  const handleCreatePlaylistForm = async () => {
+    setFormActive(!isFormActive);
+    await getUserId();
+  };
 
-    if (selectedList.length === 0) {
-      setSelectedList([
-        { name: data.name, uri: data.uri, image: imageurl, isSelected: true },
-      ]);
-    } else {
-      setSelectedList([
-        ...selectedList,
-        { name: data.name, uri: data.uri, image: imageurl, isSelected: true },
-      ]);
+  const handleSubmitPlaylist = async (event) => {
+    event.preventDefault();
 
-      selectedList.forEach((value) => {
-        if (value.uri === data.uri) {
-          // alert("udah ada");
-          arr = selectedList.filter((item) => item.uri !== data.uri);
-          console.log(...arr);
+    if (inputValue.titlePlaylist !== "" && inputValue.descPlaylist !== "") {
+      if (
+        inputValue.titlePlaylist.length >= 10 &&
+        inputValue.descPlaylist.length >= 20
+      ) {
+        if (selectedUri.length === 0) {
+          alert("Please choose tracks you want to add");
+        } else {
+          await createPlaylist();
         }
-      });
-
-      if (arr.length > 0) {
-        setSelectedList([...arr]);
+      } else {
+        alert("Minimum title is 10 character & description is 20");
       }
+    } else {
+      alert("Please add title and description for your playlist");
     }
   };
 
-  const getSelectedList = (list) => {
-    let arr = list.map((item) => item.uri);
-    let filter = list.filter(({ uri }, index) => !arr.includes(uri, index + 1));
+  // Handle list
+  const handleSelectedTrack = (trackUri, data) => {
+    if (selectedUri.includes(trackUri)) {
+      setSelectedUri([...selectedUri.filter((uri) => uri !== trackUri)]);
 
-    return filter.map((item) => {
-      return (
-        <CardContainer
-          imgUrl={item.image}
-          trackTitle={item.name}
-          btnName={item.isSelected ? "Deselect" : "Select"}
-          onClick={() => {
-            addToSelected(item, item.image);
-          }}
-        />
-      );
-    });
+      const filter = selectedList.filter((item) => item.uri !== trackUri);
+      setSelectedList([...filter]);
+    } else {
+      setSelectedUri([...selectedUri, trackUri]);
+      setSelectedList([...selectedList, data]);
+    }
   };
 
-  const getArtistList = (list) => {
-    let arr = list.map((item) => item.uri);
-    let filter = list.filter(({ uri }, index) => !arr.includes(uri, index + 1));
-
-    return filter.map((item) => {
-      let image = checkImageAvailability(item);
-      return (
-        <CardContainer
-          imgUrl={image[0]}
-          altImg={!!image[0] ? "An Artist Image" : "No Image Available"}
-          artistName={item.type}
-          trackTitle={item.name}
-          btnName="Select"
-          onClick={() => {
-            addToSelected(item, image[0]);
-          }}
-          key={item.uri}
-        />
-      );
-    });
-  };
-
-  const getAlbumList = (list) => {
-    let arr = list.map((item) => item.uri);
-    let filter = list.filter(({ uri }, index) => !arr.includes(uri, index + 1));
-
-    return filter.map((item) => {
-      let image = checkImageAvailability(item);
-
-      return (
-        <CardContainer
-          imgUrl={image[0]}
-          altImg={image[0] > 0 ? "An Artist Image" : "No Image Available"}
-          artistName={item.artists[0].name}
-          trackTitle={item.name}
-          btnName="Select"
-          onClick={() => {
-            addToSelected(item, image[0]);
-          }}
-          key={item.uri}
-        />
-      );
-    });
-  };
-
-  const getTrackList = (list) => {
+  const getTrackList = (list, enableBtn) => {
     let arr = list.map((item) => item.uri);
     let filter = list.filter(({ uri }, index) => !arr.includes(uri, index + 1));
 
@@ -168,9 +194,10 @@ function Home() {
           altImg={image[0] > 0 ? "An Track Image" : "No Image Available"}
           artistName={artist}
           trackTitle={item.name}
-          btnName="Select"
+          btnName={selectedUri.includes(item.uri) ? "Deselect" : "Select"}
+          enableBtn={enableBtn}
           onClick={() => {
-            addToSelected(item, image[0]);
+            handleSelectedTrack(item.uri, item);
           }}
           key={item.uri}
         />
@@ -178,41 +205,50 @@ function Home() {
     });
   };
 
-  const handleChange = (event) => setQuery(event.target.value);
+  // Other utils
+  const getHashParam = () => {
+    let hashUrl = document.location.hash.substr(1);
+    let hashComponent = new URLSearchParams(hashUrl);
+    return hashComponent;
+  };
 
-  const handleClick = async () => {
-    if (query === "") {
-      alert("Please fill the search input first");
+  const checkImageAvailability = (list) => {
+    let image = [];
+    if (list.images.length > 0) {
+      list.images.forEach((item) => {
+        image.push(item.url);
+      });
     } else {
-      await getApiCall(query, token, tokenType);
+      image = "";
     }
+    return image;
   };
 
   const isDataEmpty = (list) => {
     if (list.length > 0) {
       return (
         <div>
+          {isFormActive ? (
+            <PlaylistForm
+              titleValue={inputValue.titlePlaylist}
+              descValue={inputValue.descPlaylist}
+              handleSubmit={handleSubmitPlaylist}
+              onChange={handleOnChangePlaylist}
+            />
+          ) : (
+            <></>
+          )}
           {selectedList.length > 0 ? (
             <div>
               <TrackList
                 title="User Choice"
-                list={getSelectedList(selectedList)}
+                list={getTrackList(selectedList, false)}
               />
-              <a
-                className="ClearHistoryButton"
-                onClick={() => {
-                  setSelectedList([]);
-                }}
-              >
-                Clear History
-              </a>
             </div>
           ) : (
             <></>
           )}
-          <TrackList title="Artists" list={getArtistList(artistList)} />
-          <TrackList title="Albums" list={getAlbumList(albumList)} />
-          <TrackList title="Tracks" list={getTrackList(trackList)} />
+          <TrackList title="Tracks" list={getTrackList(trackList, true)} />
         </div>
       );
     } else {
@@ -225,7 +261,9 @@ function Home() {
       <NavBar
         handleChange={handleChange}
         inputValue={query}
-        handleClick={handleClick}
+        handleSubmit={handleSubmit}
+        handleClick={handleCreatePlaylistForm}
+        isFormActive={isFormActive}
       />
       <div className="SearchResult">{isDataEmpty(trackList)}</div>
     </div>

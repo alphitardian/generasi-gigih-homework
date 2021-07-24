@@ -8,6 +8,7 @@ function CardContainer({
   trackTitle,
   artistName,
   btnName,
+  enableBtn,
   onClick,
 }) {
   return (
@@ -15,7 +16,11 @@ function CardContainer({
       <Image src={imgUrl} alt={altImg} />
       <h2 className="TrackTitleText">{trackTitle}</h2>
       <p className="ArtistText">{artistName}</p>
-      <Button className="SelectBtn" name={btnName} onClick={onClick} />
+      {enableBtn ? (
+        <Button className="SelectBtn" name={btnName} onClick={onClick} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

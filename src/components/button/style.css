@@ -1,5 +1,5 @@
 .SelectBtn {
-  width: 100%;
+  /* width: 100%; */
   height: 40px;
   border-radius: 10px;
   background-color: orangered;
@@ -22,3 +22,7 @@ a {
   text-decoration: none;
   color: white;
 }
+
+/* .ButtonContainer {
+  margin-right: 2em;
+} */

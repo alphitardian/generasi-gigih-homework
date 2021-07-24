@@ -1,21 +1,17 @@
 import React from "react";
 import "./style.css";
 
-function SearchForm(props) {
-  const { handleChange, handleClick, value, placeholder } = props;
-
+function SearchForm({ handleChange, handleSubmit, value, placeholder }) {
   return (
-    <div className="Form">
+    <form className="Form" onSubmit={handleSubmit}>
       <input
+        className="SearchInput"
         type="text"
         placeholder={placeholder}
         onChange={handleChange}
         value={value}
       />
-      <button onClick={handleClick} className="FormButton">
-        Search
-      </button>
-    </div>
+    </form>
   );
 }
 
