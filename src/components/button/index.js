@@ -6,15 +6,17 @@ function Button({ name, onClick, link }) {
 
   return (
     <div className="ButtonContainer">
-      <button
-        className="SelectBtn"
-        onClick={() => {
-          onClick();
-          setSelected(!isSelected);
-        }}
-      >
-        <a href={link}>{isSelected ? "Deselect" : name}</a>
-      </button>
+      <a href={link}>
+        <button
+          className="SelectBtn"
+          onClick={() => {
+            onClick();
+            setSelected(!isSelected);
+          }}
+        >
+          {isSelected ? "Deselect" : name}
+        </button>
+      </a>
     </div>
   );
 }
