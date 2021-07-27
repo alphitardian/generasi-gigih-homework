@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { SPOTIFY_ENDPOINT } from "../utils/constants";
 
 // Slice
 export const credentialSlice = createSlice({
@@ -29,7 +30,7 @@ export default credentialSlice.reducer;
 // Action
 export const fetchUserId = (token, tokenType) => async (dispatch) => {
   axios
-    .get("https://api.spotify.com/v1/me", {
+    .get(`${SPOTIFY_ENDPOINT}/me`, {
       headers: {
         Authorization: `${tokenType} ${token}`,
       },

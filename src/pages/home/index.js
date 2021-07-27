@@ -7,49 +7,34 @@ import {
   PlaylistForm,
 } from "../../components/";
 import axios from "axios";
-import "./style.css";
 import { fetchUserId, getHashParams } from "../../redux/credential-slice";
+import {
+  getSelectedList,
+  getSelectedUri,
+  searchTrack,
+} from "../../redux/track-slice";
+import { SPOTIFY_ENDPOINT } from "../../utils/constants";
+import "./style.css";
 
 function Home() {
   const { userId, token, tokenType } = useSelector((state) => state.credential);
+  const { trackList, selectedList, selectedUri } = useSelector(
+    (state) => state.track
+  );
   const dispatch = useDispatch();
 
   const [query, setQuery] = useState("");
-
   const [isFormActive, setFormActive] = useState(false);
   const [inputValue, setInputValue] = useState({
     titlePlaylist: "",
     descPlaylist: "",
   });
 
-  const [trackList, setTrackList] = useState([]);
-  const [selectedUri, setSelectedUri] = useState([]);
-  const [selectedList, setSelectedList] = useState([]);
-
   useEffect(() => {
     dispatch(getHashParams(document.location.hash));
   }, []);
 
   // API Call
-  const searchTrack = async (query, tokenType) => {
-    const response = await axios.get("https://api.spotify.com/v1/search", {
-      headers: {
-        Authorization: `${tokenType} ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      params: {
-        q: query,
-        type: "album,track,artist",
-        limit: 10,
-      },
-    });
-
-    setTrackList([...response.data.tracks.items]);
-    setQuery("");
-    console.log(response.data.tracks.items);
-  };
-
   const createPlaylist = async () => {
     const data = {
       name: inputValue.titlePlaylist,
@@ -65,7 +50,7 @@ function Home() {
       },
     };
     const response = await axios.post(
-      `https://api.spotify.com/v1/users/${userId}/playlists`,
+      `${SPOTIFY_ENDPOINT}/users/${userId}/playlists`,
       data,
       config
     );
@@ -89,7 +74,7 @@ function Home() {
       },
     };
     const response = await axios.post(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      `${SPOTIFY_ENDPOINT}/playlists/${playlistId}/tracks`,
       data,
       config
     );
@@ -116,7 +101,9 @@ function Home() {
       alert("Please fill the search input first");
     } else {
       const keyword = query.replace(" ", "+");
-      await searchTrack(keyword, tokenType);
+      dispatch(searchTrack(keyword, token, tokenType));
+      setQuery("");
+      console.log(trackList);
       dispatch(fetchUserId(token, tokenType));
     }
   };
@@ -149,13 +136,15 @@ function Home() {
   // Handle list
   const handleSelectedTrack = (trackUri, data) => {
     if (selectedUri.includes(trackUri)) {
-      setSelectedUri([...selectedUri.filter((uri) => uri !== trackUri)]);
+      dispatch(
+        getSelectedUri([...selectedUri.filter((uri) => uri !== trackUri)])
+      );
 
       const filter = selectedList.filter((item) => item.uri !== trackUri);
-      setSelectedList([...filter]);
+      dispatch(getSelectedList([...filter]));
     } else {
-      setSelectedUri([...selectedUri, trackUri]);
-      setSelectedList([...selectedList, data]);
+      dispatch(getSelectedUri([...selectedUri, trackUri]));
+      dispatch(getSelectedList([...selectedList, data]));
     }
   };
 
