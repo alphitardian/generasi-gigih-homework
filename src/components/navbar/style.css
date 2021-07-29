@@ -13,13 +13,15 @@
 }
 
 .PlaylistButton {
-  margin-right: 2.5em !important;
+  margin-right: 1em;
   color: orangered;
   border: none;
   background-color: transparent;
   font-weight: 800;
   font-size: large;
   padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
   border-radius: 10px;
 }
 
@@ -32,13 +34,15 @@
 }
 
 .ActiveButton {
-  margin-right: 2.5em !important;
+  margin-right: 1em;
   color: white;
   border: none;
   background-color: orangered;
   font-weight: 800;
   font-size: large;
   padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
   border-radius: 10px;
 }
 
@@ -48,4 +52,16 @@
 
 .ActiveButton:active {
   background-color: rgb(212, 57, 0);
+}
+
+.ProfileImage {
+  width: 75px;
+  margin-right: 2.5em;
+  border-radius: 20px;
+}
+
+.LeftSideNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
