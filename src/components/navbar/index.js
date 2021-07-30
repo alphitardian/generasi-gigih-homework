@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { SearchForm } from "..";
-import "./style.css";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { SearchForm } from "..";
 import { SIGNIN_URL } from "../../utils/constants";
+import "./style.css";
 
 function NavBar({
   handleChange,
   handleSubmit,
   inputValue,
   isUserLoggedin,
-  imgUrl,
+  imageUrl,
 }) {
   const { selectedList } = useSelector((state) => state.track);
 
@@ -37,8 +38,8 @@ function NavBar({
   };
 
   const checkImageProfile = () => {
-    if (imgUrl !== "") {
-      return <img src={imgUrl} className="ProfileImage" />;
+    if (imageUrl !== "") {
+      return <img src={imageUrl} className="ProfileImage" />;
     } else {
       return (
         <a className="PlaylistButton" href={SIGNIN_URL}>
@@ -64,5 +65,13 @@ function NavBar({
     </div>
   );
 }
+
+NavBar.propTypes = {
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  inputValue: PropTypes.string,
+  isUserLoggedin: PropTypes.bool,
+  imageUrl: PropTypes.string,
+};
 
 export default NavBar;

@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CreatePlaylist from "../pages/create-playlist";
 import Home from "../pages/home";

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button, Image } from "../../components";
 import "./style.css";
 
@@ -13,7 +14,7 @@ function CardContainer({
 }) {
   return (
     <div className="Container">
-      <Image src={imgUrl} alt={altImg} />
+      <Image source={imgUrl} alternative={altImg} />
       <h2 className="TrackTitleText">{trackTitle}</h2>
       <p className="ArtistText">{artistName}</p>
       {enableBtn ? (
@@ -24,5 +25,15 @@ function CardContainer({
     </div>
   );
 }
+
+CardContainer.propTypes = {
+  imgUrl: PropTypes.any,
+  altImg: PropTypes.string,
+  trackTitle: PropTypes.string,
+  artistName: PropTypes.string,
+  btnName: PropTypes.string,
+  enableBtn: PropTypes.bool,
+  onClick: PropTypes.func,
+};
 
 export default CardContainer;

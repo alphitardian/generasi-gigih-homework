@@ -133,7 +133,7 @@ function Home() {
         inputValue={query}
         handleSubmit={handleSubmit}
         isUserLoggedin={isLoggedin}
-        imgUrl={imgUrl}
+        imageUrl={imgUrl}
       />
       <div className="SearchResult">{isDataEmpty(trackList)}</div>
     </div>

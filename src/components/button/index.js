@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 
 function Button({ name, onClick, link }) {
@@ -20,5 +21,11 @@ function Button({ name, onClick, link }) {
     </div>
   );
 }
+
+Button.propTypes = {
+  name: PropTypes.string,
+  link: PropTypes.string,
+  onClick: PropTypes.func,
+};
 
 export default Button;

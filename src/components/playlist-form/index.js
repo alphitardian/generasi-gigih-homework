@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 
 function PlaylistForm({ titleValue, descValue, handleSubmit, onChange }) {
@@ -30,5 +31,12 @@ function PlaylistForm({ titleValue, descValue, handleSubmit, onChange }) {
     </div>
   );
 }
+
+PlaylistForm.propTypes = {
+  titleValue: PropTypes.string,
+  descValue: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  onChange: PropTypes.func,
+};
 
 export default PlaylistForm;

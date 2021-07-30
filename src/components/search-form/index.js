@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 
 function SearchForm({ handleChange, handleSubmit, value, placeholder }) {
@@ -14,5 +15,12 @@ function SearchForm({ handleChange, handleSubmit, value, placeholder }) {
     </form>
   );
 }
+
+SearchForm.propTypes = {
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+};
 
 export default SearchForm;

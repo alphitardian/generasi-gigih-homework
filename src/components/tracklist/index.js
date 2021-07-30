@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./style.css";
 
-function TrackList(props) {
-  const { title, list } = props;
+function TrackList({ title, list }) {
   return (
     <div className="ListContainer">
       <h2>{title}</h2>
@@ -10,5 +10,10 @@ function TrackList(props) {
     </div>
   );
 }
+
+TrackList.propTypes = {
+  title: PropTypes.string,
+  list: PropTypes.array,
+};
 
 export default TrackList;
