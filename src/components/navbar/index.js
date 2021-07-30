@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import { SearchForm } from "..";
 import "./style.css";
 import { useSelector } from "react-redux";
-import { Button } from "..";
 import { SIGNIN_URL } from "../../utils/constants";
 
 function NavBar({
   handleChange,
   handleSubmit,
-  handleClick,
   inputValue,
   isUserLoggedin,
   imgUrl,
@@ -18,6 +16,36 @@ function NavBar({
 
   const handleAlert = () => {
     alert("Please choose your track first");
+  };
+
+  const checkUserLoggedIn = () => {
+    if (isUserLoggedin) {
+      if (selectedList.length > 0) {
+        return (
+          <Link to="/create-playlist" className="ActiveButton">
+            Create Playlist
+          </Link>
+        );
+      } else {
+        return (
+          <button className="PlaylistButton" onClick={handleAlert}>
+            Create Playlist
+          </button>
+        );
+      }
+    }
+  };
+
+  const checkImageProfile = () => {
+    if (imgUrl !== "") {
+      return <img src={imgUrl} className="ProfileImage" />;
+    } else {
+      return (
+        <a className="PlaylistButton" href={SIGNIN_URL}>
+          Login
+        </a>
+      );
+    }
   };
 
   return (
@@ -30,22 +58,8 @@ function NavBar({
         handleSubmit={handleSubmit}
       />
       <div className="LeftSideNav">
-        {selectedList.length > 0 && isUserLoggedin ? (
-          <Link to="/create-playlist" className="ActiveButton">
-            Create Playlist
-          </Link>
-        ) : (
-          <button className="PlaylistButton" onClick={handleAlert}>
-            Create Playlist
-          </button>
-        )}
-        {imgUrl !== "" ? (
-          <img src={imgUrl} className="ProfileImage" />
-        ) : (
-          <a className="PlaylistButton" href={SIGNIN_URL}>
-            Login
-          </a>
-        )}
+        {checkUserLoggedIn()}
+        {checkImageProfile()}
       </div>
     </div>
   );

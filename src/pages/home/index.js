@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { CardContainer, NavBar, TrackList } from "../../components/";
 import {
-  CardContainer,
-  NavBar,
-  TrackList,
-} from "../../components/";
-import axios from "axios";
-import {
-  getHashParams,
   getIsLoggedIn,
   getUserId,
-  getImageUrl
+  getImageUrl,
+  getToken,
+  getTokenType,
 } from "../../redux/credential-slice";
 import {
+  getTrackList,
   getSelectedList,
   getSelectedUri,
-  searchTrack,
 } from "../../redux/track-slice";
-import { SPOTIFY_ENDPOINT } from "../../utils/constants";
 import "./style.css";
-import { checkImageAvailability } from "../../utils/utils";
+import {
+  checkImageAvailability,
+  filterTrackList,
+  displayArtistName,
+} from "../../utils/utils";
+import { fetchUserId } from "../../api/user-api";
+import { searchTrack } from "../../api/track-api";
 
 function Home() {
   const { token, tokenType, imgUrl, isLoggedin } = useSelector(
@@ -33,34 +34,22 @@ function Home() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    dispatch(getHashParams(document.location.hash));
-  },[])
+    dispatch(getToken(document.location.hash));
+    dispatch(getTokenType(document.location.hash));
+  }, []);
 
   useEffect(() => {
     if (token) {
-      fetchUserId(token, tokenType);
-      dispatch(getIsLoggedIn(true));
-    } 
-  });
-
-  // API Call
-  const fetchUserId = (token, tokenType) => {
-    axios
-      .get(`${SPOTIFY_ENDPOINT}/me`, {
-        headers: {
-          Authorization: `${tokenType} ${token}`,
-        },
-      })
-      .then((response) => {
+      fetchUserId(token, tokenType).then((response) => {
         dispatch(getUserId(response.data.id));
         dispatch(getImageUrl(response.data.images[0].url));
       });
-  };
+      dispatch(getIsLoggedIn(true));
+    }
+  });
 
-  // Handle Input change
   const handleChange = (event) => setQuery(event.target.value);
 
-  // Handle onClick / Submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (query === "") {
@@ -68,16 +57,16 @@ function Home() {
     } else {
       if (isLoggedin) {
         const keyword = query.replace(" ", "+");
-        dispatch(searchTrack(keyword, token, tokenType));
+        searchTrack(keyword, token, tokenType).then((response) => {
+          dispatch(getTrackList([...response.data.tracks.items]));
+        });
         setQuery("");
-        console.log(token);
       } else {
         alert("Please Login first");
       }
     }
   };
 
-  // Handle list
   const handleSelectedTrack = (trackUri, data) => {
     if (selectedUri.includes(trackUri)) {
       dispatch(
@@ -92,21 +81,10 @@ function Home() {
     }
   };
 
-  const getTrackList = (list, enableBtn) => {
-    let arr = list.map((item) => item.uri);
-    let filter = list.filter(({ uri }, index) => !arr.includes(uri, index + 1));
-
-    return filter.map((item) => {
-      let artist = "";
-      if (item.artists.length > 1) {
-        item.artists.forEach((value) => {
-          artist += `${value.name} ft. `;
-        });
-      } else {
-        artist = item.artists[0].name;
-      }
-
-      let image = checkImageAvailability(item.album);
+  const diplayTrackList = (list, enableBtn) => {
+    return filterTrackList(list).map((item) => {
+      const artist = displayArtistName(item.artists);
+      const image = checkImageAvailability(item.album);
 
       return (
         <CardContainer
@@ -134,13 +112,13 @@ function Home() {
             <div>
               <TrackList
                 title="User Choice"
-                list={getTrackList(selectedList, false)}
+                list={diplayTrackList(selectedList, false)}
               />
             </div>
           ) : (
             <></>
           )}
-          <TrackList title="Tracks" list={getTrackList(trackList, true)} />
+          <TrackList title="Tracks" list={diplayTrackList(trackList, true)} />
         </div>
       );
     } else {
@@ -150,8 +128,6 @@ function Home() {
 
   return (
     <div>
-      {/* { isLoggedin ? <Redirect to="/home" /> : null } */}
-      {console.log(token)}
       <NavBar
         handleChange={handleChange}
         inputValue={query}

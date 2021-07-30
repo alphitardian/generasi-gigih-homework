@@ -1,98 +1,27 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
+import { useSelector } from "react-redux";
 import { PlaylistForm, TrackList, CardContainer } from "../../components";
-import { getSelectedUri, getSelectedList } from "../../redux/track-slice";
-import { checkImageAvailability } from "../../utils/utils";
-import { SPOTIFY_ENDPOINT } from "../../utils/constants";
+import {
+  checkImageAvailability,
+  filterTrackList,
+  displayArtistName,
+} from "../../utils/utils";
+import { createPlaylist, addItemToPlaylist } from "../../api/track-api";
 import "./style.css";
 
 function CreatePlaylist() {
   const { userId, token, tokenType } = useSelector((state) => state.credential);
   const { selectedList, selectedUri } = useSelector((state) => state.track);
-  const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState({
     titlePlaylist: "",
     descPlaylist: "",
   });
 
-  const createPlaylist = async () => {
-    const data = {
-      name: inputValue.titlePlaylist,
-      public: false,
-      collaborative: false,
-      description: inputValue.descPlaylist,
-    };
-
-    const config = {
-      headers: {
-        Authorization: `${tokenType} ${token}`,
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await axios.post(
-      `${SPOTIFY_ENDPOINT}/users/${userId}/playlists`,
-      data,
-      config
-    );
-
-    setInputValue({
-      titlePlaylist: "",
-      descPlaylist: "",
-    });
-    addItemToPlaylist(response.data.id);
-    alert(`${inputValue.titlePlaylist} Playlist added successfully!`);
-  };
-
-  const addItemToPlaylist = async (playlistId) => {
-    const data = {
-      uris: selectedUri,
-    };
-    const config = {
-      headers: {
-        Authorization: `${tokenType} ${token}`,
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await axios.post(
-      `${SPOTIFY_ENDPOINT}/playlists/${playlistId}/tracks`,
-      data,
-      config
-    );
-
-    console.log(response);
-  };
-
-  const handleSelectedTrack = (trackUri, data) => {
-    if (selectedUri.includes(trackUri)) {
-      dispatch(
-        getSelectedUri([...selectedUri.filter((uri) => uri !== trackUri)])
-      );
-
-      const filter = selectedList.filter((item) => item.uri !== trackUri);
-      dispatch(getSelectedList([...filter]));
-    } else {
-      dispatch(getSelectedUri([...selectedUri, trackUri]));
-      dispatch(getSelectedList([...selectedList, data]));
-    }
-  };
-
-  const getTrackList = (list, enableBtn) => {
-    let arr = list.map((item) => item.uri);
-    let filter = list.filter(({ uri }, index) => !arr.includes(uri, index + 1));
-
-    return filter.map((item) => {
-      let artist = "";
-      if (item.artists.length > 1) {
-        item.artists.forEach((value) => {
-          artist += `${value.name} ft. `;
-        });
-      } else {
-        artist = item.artists[0].name;
-      }
-
-      let image = checkImageAvailability(item.album);
+  const diplayTrackList = (list, enableBtn) => {
+    return filterTrackList(list).map((item) => {
+      const artist = displayArtistName(item.artists);
+      const image = checkImageAvailability(item.album);
 
       return (
         <CardContainer
@@ -102,12 +31,32 @@ function CreatePlaylist() {
           trackTitle={item.name}
           btnName={selectedUri.includes(item.uri) ? "Deselect" : "Select"}
           enableBtn={enableBtn}
-          onClick={() => {
-            handleSelectedTrack(item.uri, item);
-          }}
           key={item.uri}
         />
       );
+    });
+  };
+
+  const postCreatePlaylist = () => {
+    createPlaylist(
+      inputValue.titlePlaylist,
+      inputValue.descPlaylist,
+      token,
+      tokenType,
+      userId
+    ).then((response) => {
+      const playlistId = response.data.id;
+      addItemToPlaylist(playlistId, selectedUri, token, tokenType).then(
+        (response) => {
+          console.log(response);
+        }
+      );
+
+      setInputValue({
+        titlePlaylist: "",
+        descPlaylist: "",
+      });
+      alert(`${inputValue.titlePlaylist} Playlist added successfully!`);
     });
   };
 
@@ -121,7 +70,7 @@ function CreatePlaylist() {
     });
   };
 
-  const handleSubmitPlaylist = async (event) => {
+  const handleSubmitPlaylist = (event) => {
     event.preventDefault();
 
     if (inputValue.titlePlaylist !== "" && inputValue.descPlaylist !== "") {
@@ -132,7 +81,7 @@ function CreatePlaylist() {
         if (selectedUri.length === 0) {
           alert("Please choose tracks you want to add");
         } else {
-          await createPlaylist();
+          postCreatePlaylist();
         }
       } else {
         alert("Minimum title is 10 character & description is 20");
@@ -151,7 +100,10 @@ function CreatePlaylist() {
         handleSubmit={handleSubmitPlaylist}
         onChange={handleOnChangePlaylist}
       />
-      <TrackList title="User Choice" list={getTrackList(selectedList, false)} />
+      <TrackList
+        title="User Choice"
+        list={diplayTrackList(selectedList, false)}
+      />
     </div>
   );
 }

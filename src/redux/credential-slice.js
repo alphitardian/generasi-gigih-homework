@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getHashParams } from "../utils/utils";
 
 // Slice
 export const credentialSlice = createSlice({
@@ -15,10 +16,10 @@ export const credentialSlice = createSlice({
       state.userId = action.payload;
     },
     getToken: (state, action) => {
-      state.token = action.payload;
+      state.token = getHashParams(action.payload).get("access_token");
     },
     getTokenType: (state, action) => {
-      state.tokenType = action.payload;
+      state.tokenType = getHashParams(action.payload).get("token_type");
     },
     getImageUrl: (state, action) => {
       state.imgUrl = action.payload;
@@ -33,12 +34,3 @@ export const { getToken, getTokenType, getUserId, getImageUrl, getIsLoggedIn } =
   credentialSlice.actions;
 
 export default credentialSlice.reducer;
-
-// Action
-
-export const getHashParams = (url) => (dispatch) => {
-  const hashUrl = url.substr(1);
-  const hashComponent = new URLSearchParams(hashUrl);
-  dispatch(getToken(hashComponent.get("access_token")));
-  dispatch(getTokenType(hashComponent.get("token_type")));
-};
