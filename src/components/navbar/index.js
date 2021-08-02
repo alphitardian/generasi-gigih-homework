@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { SearchForm } from "..";
 import { SIGNIN_URL } from "../../utils/constants";
 import "./style.css";
+import { getToken, getUserId } from "../../redux/credential-slice";
 
 function NavBar({
   handleChange,
@@ -14,9 +15,16 @@ function NavBar({
   imageUrl,
 }) {
   const { selectedList } = useSelector((state) => state.track);
+  const dispatch = useDispatch();
 
   const handleAlert = () => {
     alert("Please choose your track first");
+  };
+
+  const handleLogOut = () => {
+    dispatch(getUserId(""));
+    dispatch(getToken(""));
+    location.reload();
   };
 
   const checkUserLoggedIn = () => {
@@ -39,7 +47,16 @@ function NavBar({
 
   const checkImageProfile = () => {
     if (imageUrl !== "") {
-      return <img src={imageUrl} className="ProfileImage" />;
+      return (
+        <div className="Dropdown">
+          <img src={imageUrl} className="ProfileImage" />
+          <div className="DropdownContent">
+            <button onClick={handleLogOut} className="LogOutButton">
+              <a href="/">Log Out</a>
+            </button>
+          </div>
+        </div>
+      );
     } else {
       return (
         <a className="PlaylistButton" href={SIGNIN_URL}>

@@ -1,7 +1,7 @@
 .TrackList {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-center;
+  align-items: center;
   justify-content: center;
 }
 

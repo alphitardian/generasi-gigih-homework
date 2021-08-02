@@ -4,8 +4,8 @@ import "./style.css";
 
 function PlaylistForm({ titleValue, descValue, handleSubmit, onChange }) {
   return (
-    <div className="PlaylistForm">
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSubmit} className="PlaylistForm">
         <input
           className="InputForm"
           type="text"
