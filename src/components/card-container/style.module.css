@@ -1,0 +1,31 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.6em !important;
+  width: 350px;
+  border: none !important;
+  text-align: center;
+  background-color: #262626 !important;
+  color: white;
+}
+
+.TrackTitleText {
+  font-weight: bold;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 1em;
+  text-overflow: ellipsis;
+  color: white;
+}
+
+.ArtistText {
+  font-size: large;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+}

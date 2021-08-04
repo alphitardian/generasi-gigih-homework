@@ -4,9 +4,10 @@
   column-gap: 10px;
   row-gap: 10px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: auto;
   margin-left: 25%;
   margin-right: 25%;
+  margin-bottom: 3em;
 }
 
 .InputForm {
@@ -24,20 +25,5 @@
 
 .CreateButton {
   grid-column: 1/3;
-  background-color: orangered;
-  height: 30px;
-  border: none;
-  color: white;
-  padding-left: 2em;
-  padding-right: 2em;
-  border-radius: 10px;
   font-weight: 600;
-}
-
-.CreateButton:hover {
-  background-color: rgb(231, 62, 0);
-}
-
-.CreateButton:active {
-  background-color: rgb(212, 57, 0);
 }

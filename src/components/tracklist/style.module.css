@@ -8,3 +8,7 @@
 .ListContainer {
   text-align: center;
 }
+
+.Heading {
+  color: white !important;
+}

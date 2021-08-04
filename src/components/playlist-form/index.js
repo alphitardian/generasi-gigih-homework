@@ -1,32 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import { Input, Button } from "antd";
+import style from "./style.module.css";
 
 function PlaylistForm({ titleValue, descValue, handleSubmit, onChange }) {
   return (
     <div>
-      <form onSubmit={handleSubmit} className="PlaylistForm">
-        <input
-          className="InputForm"
+      <form onSubmit={handleSubmit} className={style.PlaylistForm}>
+        <Input
           type="text"
           placeholder="Playlist Title"
           value={titleValue}
           onChange={onChange}
           name="titlePlaylist"
           minLength="10"
+          size="large"
         />
-        <input
-          className="InputForm"
+        <Input
           type="text"
           placeholder="Playlist Description"
           value={descValue}
           onChange={onChange}
           name="descPlaylist"
           minLength="20"
+          size="large"
         />
-        <button className="CreateButton" type="submit">
+        <Button
+          className={style.CreateButton}
+          type="primary"
+          block
+          onClick={handleSubmit}
+        >
           Create
-        </button>
+        </Button>
       </form>
     </div>
   );

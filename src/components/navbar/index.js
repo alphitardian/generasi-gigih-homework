@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { SearchForm } from "..";
 import { SIGNIN_URL } from "../../utils/constants";
-import "./style.css";
+import { Button } from "antd";
+import style from "./style.module.css";
 import { getToken, getUserId } from "../../redux/credential-slice";
 
 function NavBar({
@@ -31,15 +32,19 @@ function NavBar({
     if (isUserLoggedin) {
       if (selectedList.length > 0) {
         return (
-          <Link to="/create-playlist" className="ActiveButton">
+          <Link
+            to="/create-playlist"
+            type="primary"
+            className={style.ActiveButton}
+          >
             Create Playlist
           </Link>
         );
       } else {
         return (
-          <button className="PlaylistButton" onClick={handleAlert}>
+          <Button onClick={handleAlert} className={style.PlaylistButton}>
             Create Playlist
-          </button>
+          </Button>
         );
       }
     }
@@ -48,34 +53,41 @@ function NavBar({
   const checkImageProfile = () => {
     if (imageUrl !== "") {
       return (
-        <div className="Dropdown">
-          <img src={imageUrl} className="ProfileImage" />
-          <div className="DropdownContent">
-            <button onClick={handleLogOut} className="LogOutButton">
+        <div className={style.Dropdown}>
+          <img src={imageUrl} className={style.ProfileImage} />
+          <div className={style.DropdownContent}>
+            <Button
+              onClick={handleLogOut}
+              type="primary"
+              danger
+              className={style.LogOutButton}
+            >
               <a href="/">Log Out</a>
-            </button>
+            </Button>
           </div>
         </div>
       );
     } else {
       return (
-        <a className="PlaylistButton" href={SIGNIN_URL}>
+        <Button className={style.PlaylistButton} href={SIGNIN_URL}>
           Login
-        </a>
+        </Button>
       );
     }
   };
 
   return (
-    <div className="Navbar">
-      <h1>Spotifai</h1>
-      <SearchForm
-        placeholder="Search"
-        handleChange={handleChange}
-        value={inputValue}
-        handleSubmit={handleSubmit}
-      />
-      <div className="LeftSideNav">
+    <div className={style.Navbar}>
+      <div className={style.LeftSideNav}>
+        <h1>Spotifai</h1>
+        <SearchForm
+          placeholder="Search"
+          handleChange={handleChange}
+          value={inputValue}
+          handleSubmit={handleSubmit}
+        />
+      </div>
+      <div className={style.RightSideNav}>
         {checkUserLoggedIn()}
         {checkImageProfile()}
       </div>

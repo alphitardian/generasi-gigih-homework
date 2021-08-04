@@ -1,3 +1,7 @@
+.PlaylistContainer {
+  padding-top: 2em;
+}
+
 .Navbar {
   background-color: white;
   display: flex;
@@ -6,64 +10,41 @@
   justify-content: space-between;
   padding-left: 1em;
   padding-right: 1em;
-  box-shadow: 0px 5px 10px rgb(231, 231, 231);
+  box-shadow: 0px 2px 3px rgb(39, 39, 39);
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
+  z-index: 1;
+  background-color: rgb(20, 20, 20);
+  height: 70px;
 }
 
-.PlaylistButton {
-  margin-right: 1em;
-  color: orangered;
-  border: none;
-  background-color: transparent;
-  font-weight: 800;
-  font-size: large;
-  padding: 0.5em;
-  padding-left: 2em;
-  padding-right: 2em;
-  border-radius: 10px;
-}
-
-.PlaylistButton:hover {
-  background-color: rgb(255, 240, 234);
-}
-
-.PlaylistButton:active {
-  background-color: rgb(255, 204, 185);
-}
-
-.ActiveButton {
-  margin-right: 1em;
+h1 {
   color: white;
-  border: none;
-  background-color: orangered;
-  font-weight: 800;
-  font-size: large;
-  padding: 0.5em;
-  padding-left: 2em;
-  padding-right: 2em;
-  border-radius: 10px;
-}
-
-.ActiveButton:hover {
-  background-color: rgb(231, 62, 0);
-}
-
-.ActiveButton:active {
-  background-color: rgb(212, 57, 0);
 }
 
 .ProfileImage {
-  width: 75px;
+  width: 50px;
   margin-right: 2.5em;
-  border-radius: 20px;
+  border-radius: 25px;
+}
+
+.RightSideNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .LeftSideNav {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.LeftSideNav h1 {
+  margin-bottom: 0.1em;
+  margin-right: 1em;
+  font-weight: 700;
 }
 
 .Dropdown {

@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import style from "./style.module.css";
 
 function Image({ source, alternative }) {
   return (
     <div>
-      <img className="AlbumImg" src={source} alt={alternative} />
+      <img className={style.AlbumImg} src={source} alt={alternative} />
     </div>
   );
 }

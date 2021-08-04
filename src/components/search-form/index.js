@@ -1,18 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import { Input } from "antd";
+import "antd/dist/antd.css";
 
 function SearchForm({ handleChange, handleSubmit, value, placeholder }) {
+  const { Search } = Input;
+
   return (
-    <form className="Form" onSubmit={handleSubmit}>
-      <input
-        className="SearchInput"
-        type="text"
-        placeholder={placeholder}
-        onChange={handleChange}
-        value={value}
-      />
-    </form>
+    <Search
+      placeholder={placeholder}
+      onSearch={handleSubmit}
+      value={value}
+      onChange={handleChange}
+      allowClear
+      enterButton
+      size="large"
+      style={{ width: 300 }}
+    />
   );
 }
 

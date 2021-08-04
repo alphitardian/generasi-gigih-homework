@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Image } from "../../components";
-import "./style.css";
+import { Image } from "../../components";
+import { Card, Button } from "antd";
+import style from "./style.module.css";
 
 function CardContainer({
   imgUrl,
@@ -13,16 +14,24 @@ function CardContainer({
   onClick,
 }) {
   return (
-    <div className="Container">
+    <Card hoverable className={style.Container}>
       <Image source={imgUrl} alternative={altImg} />
-      <h2 className="TrackTitleText">{trackTitle}</h2>
-      <p className="ArtistText">{artistName}</p>
+      <h2 className={style.TrackTitleText}>{trackTitle}</h2>
+      <p className={style.ArtistText}>{artistName}</p>
       {enableBtn ? (
-        <Button className="SelectBtn" name={btnName} onClick={onClick} />
+        <Button
+          type="primary"
+          shape="round"
+          size="large"
+          block
+          onClick={onClick}
+        >
+          {btnName}
+        </Button>
       ) : (
         <></>
       )}
-    </div>
+    </Card>
   );
 }
 

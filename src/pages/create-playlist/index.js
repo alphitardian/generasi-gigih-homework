@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { PlaylistForm, TrackList, CardContainer } from "../../components";
 import {
   checkImageAvailability,
@@ -7,11 +7,16 @@ import {
   displayArtistName,
 } from "../../utils/utils";
 import { createPlaylist, addItemToPlaylist } from "../../api/track-api";
-import "./style.css";
+import { getToken, getUserId } from "../../redux/credential-slice";
+import { Button } from "antd";
+import style from "./style.module.css";
 
 function CreatePlaylist() {
-  const { userId, token, tokenType } = useSelector((state) => state.credential);
+  const { userId, token, tokenType, imgUrl } = useSelector(
+    (state) => state.credential
+  );
   const { selectedList, selectedUri } = useSelector((state) => state.track);
+  const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState({
     titlePlaylist: "",
@@ -91,9 +96,30 @@ function CreatePlaylist() {
     }
   };
 
+  const handleLogOut = () => {
+    dispatch(getUserId(""));
+    dispatch(getToken(""));
+    location.reload();
+  };
+
   return (
-    <div className="PlaylistContainer">
-      <h1>Create Playlist</h1>
+    <div className={style.PlaylistContainer}>
+      <div className={style.Navbar}>
+        <div className={style.LeftSideNav}>
+          <h1>Spotifai</h1>
+        </div>
+        <div className={style.RightSideNav}>
+          <div className={style.Dropdown}>
+            <img src={imgUrl} className={style.ProfileImage} />
+            <div className={style.DropdownContent}>
+              <Button onClick={handleLogOut} className={style.LogOutButton}>
+                <a href="/">Log Out</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1 style={{ marginTop: 75 }}>Create Playlist</h1>
       <PlaylistForm
         titleValue={inputValue.titlePlaylist}
         descValue={inputValue.descPlaylist}

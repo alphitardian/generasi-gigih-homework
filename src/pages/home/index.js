@@ -13,7 +13,7 @@ import {
   getSelectedList,
   getSelectedUri,
 } from "../../redux/track-slice";
-import "./style.css";
+import style from "./style.module.css";
 import {
   checkImageAvailability,
   filterTrackList,
@@ -50,8 +50,7 @@ function Home() {
 
   const handleChange = (event) => setQuery(event.target.value);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
     if (query === "") {
       alert("Please fill the search input first");
     } else {
@@ -122,7 +121,7 @@ function Home() {
         </div>
       );
     } else {
-      return <h1 className="NoDataPlaceholder">No Data Available</h1>;
+      return <h1 className={style.NoDataPlaceholder}>No Data Available</h1>;
     }
   };
 
@@ -135,7 +134,7 @@ function Home() {
         isUserLoggedin={isLoggedin}
         imageUrl={imgUrl}
       />
-      <div className="SearchResult">{isDataEmpty(trackList)}</div>
+      <div className={style.SearchResult}>{isDataEmpty(trackList)}</div>
     </div>
   );
 }

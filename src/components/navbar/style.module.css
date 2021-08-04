@@ -1,0 +1,105 @@
+.Navbar {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1em;
+  padding-right: 1em;
+  box-shadow: 0px 2px 3px rgb(39, 39, 39);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: rgb(20, 20, 20);
+  height: 70px;
+}
+
+.PlaylistButton {
+  margin-right: 1.5em;
+  background-color: rgb(20, 20, 20);
+  color: white;
+  font-weight: 600;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 40px;
+}
+
+.ActiveButton {
+  margin-right: 1.5em;
+  font-weight: 600;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 0.3em;
+  border-radius: 40px;
+  color: white;
+  background-color: #1890ff;
+  height: 32px;
+  transition: 0.5s ease-out;
+}
+
+.ActiveButton:hover {
+  background-color: #0075e2;
+  color: white;
+  transition: 0.5s ease-out;
+}
+
+.ActiveButton:active {
+  background-color: #005bb1;
+  color: white;
+  transition: 0.5s ease-out;
+}
+
+.ProfileImage {
+  width: 50px;
+  margin-right: 2.5em;
+  border-radius: 25px;
+}
+
+.RightSideNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.LeftSideNav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.LeftSideNav h1 {
+  margin-bottom: 0.1em;
+  margin-right: 1em;
+  font-weight: 700;
+}
+
+.Dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.DropdownContent {
+  display: none;
+  position: absolute;
+  padding: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+  border-radius: 4px;
+  right: 45px;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.DropdownContent .LogOutButton {
+  width: 150px;
+}
+
+.Dropdown:hover .DropdownContent {
+  display: block;
+}
+
+.DropdownContent:hover .LogOutButton {
+  background-color: rgb(190, 0, 0) !important;
+}
