@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getHashParams } from "../utils/utils";
+import { SliceState } from "../interface/credential-redux";
+
+const initialState: SliceState = {
+  userId: "",
+  token: "",
+  tokenType: "",
+  imgUrl: "",
+  isLoggedin: false,
+};
 
 // Slice
 export const credentialSlice = createSlice({
   name: "credential",
-  initialState: {
-    userId: "",
-    token: "",
-    tokenType: "",
-    imgUrl: "",
-    isLoggedin: false,
-  },
+  initialState: initialState,
   reducers: {
     getUserId: (state, action) => {
       state.userId = action.payload;

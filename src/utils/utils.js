@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 export const checkImageAvailability = (list) => {
   let image = [];
   if (list.images.length > 0) {

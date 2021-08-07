@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { ReactElement, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { PlaylistForm, TrackList, CardContainer } from "../../components";
 import {
   checkImageAvailability,
@@ -7,24 +7,26 @@ import {
   displayArtistName,
 } from "../../utils/utils";
 import { createPlaylist, addItemToPlaylist } from "../../api/track-api";
+import { PlaylistProps, TrackResponseType } from "../../interface/api";
+import { InputEvent, OnClickEvent } from "../../interface/event";
 import { getToken, getUserId } from "../../redux/credential-slice";
 import { Button } from "antd";
 import style from "./style.module.css";
 
-function CreatePlaylist() {
-  const { userId, token, tokenType, imgUrl } = useSelector(
+function CreatePlaylist(): ReactElement {
+  const { userId, token, tokenType, imgUrl } = useAppSelector(
     (state) => state.credential
   );
-  const { selectedList, selectedUri } = useSelector((state) => state.track);
-  const dispatch = useDispatch();
+  const { selectedList, selectedUri } = useAppSelector((state) => state.track);
+  const dispatch = useAppDispatch();
 
   const [inputValue, setInputValue] = useState({
     titlePlaylist: "",
     descPlaylist: "",
   });
 
-  const diplayTrackList = (list, enableBtn) => {
-    return filterTrackList(list).map((item) => {
+  const diplayTrackList = (list: TrackResponseType[], enableBtn: boolean) => {
+    return filterTrackList(list).map((item: TrackResponseType) => {
       const artist = displayArtistName(item.artists);
       const image = checkImageAvailability(item.album);
 
@@ -43,19 +45,26 @@ function CreatePlaylist() {
   };
 
   const postCreatePlaylist = () => {
-    createPlaylist(
-      inputValue.titlePlaylist,
-      inputValue.descPlaylist,
-      token,
-      tokenType,
-      userId
-    ).then((response) => {
+    const propsCreate: PlaylistProps = {
+      playlistTitle: inputValue.titlePlaylist,
+      description: inputValue.descPlaylist,
+      token: token,
+      tokenType: tokenType,
+      userId: userId,
+    };
+
+    createPlaylist(propsCreate).then((response) => {
       const playlistId = response.data.id;
-      addItemToPlaylist(playlistId, selectedUri, token, tokenType).then(
-        (response) => {
-          console.log(response);
-        }
-      );
+      const propsAddItem: PlaylistProps = {
+        playlistId: playlistId,
+        selectedUri: selectedUri,
+        token: token,
+        tokenType: tokenType,
+      };
+
+      addItemToPlaylist(propsAddItem).then((response) => {
+        console.log(response);
+      });
 
       setInputValue({
         titlePlaylist: "",
@@ -65,7 +74,7 @@ function CreatePlaylist() {
     });
   };
 
-  const handleOnChangePlaylist = (event) => {
+  const handleOnChangePlaylist = (event: InputEvent) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -75,7 +84,7 @@ function CreatePlaylist() {
     });
   };
 
-  const handleSubmitPlaylist = (event) => {
+  const handleSubmitPlaylist = (event: OnClickEvent) => {
     event.preventDefault();
 
     if (inputValue.titlePlaylist !== "" && inputValue.descPlaylist !== "") {
@@ -112,7 +121,12 @@ function CreatePlaylist() {
           <div className={style.Dropdown}>
             <img src={imgUrl} className={style.ProfileImage} />
             <div className={style.DropdownContent}>
-              <Button onClick={handleLogOut} className={style.LogOutButton}>
+              <Button
+                onClick={handleLogOut}
+                className={style.LogOutButton}
+                type="primary"
+                danger
+              >
                 <a href="/">Log Out</a>
               </Button>
             </div>

@@ -1,22 +1,24 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { SearchForm } from "..";
 import { SIGNIN_URL } from "../../utils/constants";
 import { Button } from "antd";
 import style from "./style.module.css";
 import { getToken, getUserId } from "../../redux/credential-slice";
+import { InputEvent } from "../../interface/event";
 
-function NavBar({
-  handleChange,
-  handleSubmit,
-  inputValue,
-  isUserLoggedin,
-  imageUrl,
-}) {
-  const { selectedList } = useSelector((state) => state.track);
-  const dispatch = useDispatch();
+interface Props {
+  handleChange: (event: InputEvent) => void;
+  handleSubmit: () => void;
+  inputValue: string;
+  isUserLoggedin: boolean;
+  imageUrl: string;
+}
+
+function NavBar(props: Props): ReactElement {
+  const { selectedList } = useAppSelector((state) => state.track);
+  const dispatch = useAppDispatch();
 
   const handleAlert = () => {
     alert("Please choose your track first");
@@ -29,7 +31,7 @@ function NavBar({
   };
 
   const checkUserLoggedIn = () => {
-    if (isUserLoggedin) {
+    if (props.isUserLoggedin) {
       if (selectedList.length > 0) {
         return (
           <Link
@@ -51,10 +53,10 @@ function NavBar({
   };
 
   const checkImageProfile = () => {
-    if (imageUrl !== "") {
+    if (props.imageUrl !== "") {
       return (
         <div className={style.Dropdown}>
-          <img src={imageUrl} className={style.ProfileImage} />
+          <img src={props.imageUrl} className={style.ProfileImage} />
           <div className={style.DropdownContent}>
             <Button
               onClick={handleLogOut}
@@ -82,9 +84,9 @@ function NavBar({
         <h1>Spotifai</h1>
         <SearchForm
           placeholder="Search"
-          handleChange={handleChange}
-          value={inputValue}
-          handleSubmit={handleSubmit}
+          handleChange={props.handleChange}
+          value={props.inputValue}
+          handleSubmit={props.handleSubmit}
         />
       </div>
       <div className={style.RightSideNav}>
@@ -94,13 +96,5 @@ function NavBar({
     </div>
   );
 }
-
-NavBar.propTypes = {
-  handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  inputValue: PropTypes.string,
-  isUserLoggedin: PropTypes.bool,
-  imageUrl: PropTypes.string,
-};
 
 export default NavBar;

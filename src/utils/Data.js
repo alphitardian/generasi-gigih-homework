@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const data = {
   album: {
     album_type: "album",

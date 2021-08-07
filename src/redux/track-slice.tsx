@@ -1,13 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TrackResponseType } from "../interface/api";
+
+interface SliceState {
+  trackList: TrackResponseType[];
+  selectedList: TrackResponseType[];
+  selectedUri: string[];
+}
+
+const initialState: SliceState = {
+  trackList: [],
+  selectedList: [],
+  selectedUri: [],
+};
 
 // Slice
 export const trackSlice = createSlice({
   name: "track",
-  initialState: {
-    trackList: [],
-    selectedList: [],
-    selectedUri: [],
-  },
+  initialState: initialState,
   reducers: {
     getTrackList: (state, action) => {
       state.trackList = action.payload;

@@ -1,35 +1,42 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { ReactElement } from "react";
 import { Input, Button } from "antd";
 import style from "./style.module.css";
+import { InputEvent, OnClickEvent } from "../../interface/event";
 
-function PlaylistForm({ titleValue, descValue, handleSubmit, onChange }) {
+interface Props {
+  titleValue: string;
+  descValue: string;
+  handleSubmit: (event: OnClickEvent) => void;
+  onChange: (value: InputEvent) => void;
+}
+
+function PlaylistForm(props: Props): ReactElement {
   return (
     <div>
-      <form onSubmit={handleSubmit} className={style.PlaylistForm}>
+      <form className={style.PlaylistForm}>
         <Input
           type="text"
           placeholder="Playlist Title"
-          value={titleValue}
-          onChange={onChange}
+          value={props.titleValue}
+          onChange={props.onChange}
           name="titlePlaylist"
-          minLength="10"
+          minLength={10}
           size="large"
         />
         <Input
           type="text"
           placeholder="Playlist Description"
-          value={descValue}
-          onChange={onChange}
+          value={props.descValue}
+          onChange={props.onChange}
           name="descPlaylist"
-          minLength="20"
+          minLength={20}
           size="large"
         />
         <Button
           className={style.CreateButton}
           type="primary"
           block
-          onClick={handleSubmit}
+          onClick={props.handleSubmit}
         >
           Create
         </Button>
@@ -37,12 +44,5 @@ function PlaylistForm({ titleValue, descValue, handleSubmit, onChange }) {
     </div>
   );
 }
-
-PlaylistForm.propTypes = {
-  titleValue: PropTypes.string,
-  descValue: PropTypes.string,
-  handleSubmit: PropTypes.func,
-  onChange: PropTypes.func,
-};
 
 export default PlaylistForm;
