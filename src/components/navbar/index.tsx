@@ -9,11 +9,11 @@ import { getToken, getUserId } from "../../redux/credential-slice";
 import { InputEvent } from "../../interface/event";
 
 interface Props {
-  handleChange: (event: InputEvent) => void;
-  handleSubmit: () => void;
-  inputValue: string;
-  isUserLoggedin: boolean;
-  imageUrl: string;
+  handleChange?: (event: InputEvent) => void;
+  handleSubmit?: () => void;
+  inputValue?: string;
+  isUserLoggedin?: boolean;
+  imageUrl?: string;
 }
 
 function NavBar(props: Props): ReactElement {
@@ -38,13 +38,18 @@ function NavBar(props: Props): ReactElement {
             to="/create-playlist"
             type="primary"
             className={style.ActiveButton}
+            data-testid="create_playlist_button"
           >
             Create Playlist
           </Link>
         );
       } else {
         return (
-          <Button onClick={handleAlert} className={style.PlaylistButton}>
+          <Button
+            onClick={handleAlert}
+            className={style.PlaylistButton}
+            data-testid="create_playlist_button_disabled"
+          >
             Create Playlist
           </Button>
         );
@@ -56,13 +61,18 @@ function NavBar(props: Props): ReactElement {
     if (props.imageUrl !== "") {
       return (
         <div className={style.Dropdown}>
-          <img src={props.imageUrl} className={style.ProfileImage} />
+          <img
+            src={props.imageUrl}
+            className={style.ProfileImage}
+            data-testid="profile_img"
+          />
           <div className={style.DropdownContent}>
             <Button
               onClick={handleLogOut}
               type="primary"
               danger
               className={style.LogOutButton}
+              data-testid="logout_button"
             >
               <a href="/">Log Out</a>
             </Button>
@@ -71,7 +81,11 @@ function NavBar(props: Props): ReactElement {
       );
     } else {
       return (
-        <Button className={style.PlaylistButton} href={SIGNIN_URL}>
+        <Button
+          className={style.PlaylistButton}
+          href={SIGNIN_URL}
+          data-testid="login_button"
+        >
           Login
         </Button>
       );
@@ -79,7 +93,7 @@ function NavBar(props: Props): ReactElement {
   };
 
   return (
-    <div className={style.Navbar}>
+    <div className={style.Navbar} data-testid="navbar">
       <div className={style.LeftSideNav}>
         <h1>Spotifai</h1>
         <SearchForm

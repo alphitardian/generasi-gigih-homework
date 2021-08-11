@@ -4,10 +4,10 @@ import style from "./style.module.css";
 import { InputEvent, OnClickEvent } from "../../interface/event";
 
 interface Props {
-  titleValue: string;
-  descValue: string;
-  handleSubmit: (event: OnClickEvent) => void;
-  onChange: (value: InputEvent) => void;
+  titleValue?: string;
+  descValue?: string;
+  handleSubmit?: (event: OnClickEvent) => void;
+  onChange?: (value: InputEvent) => void;
 }
 
 function PlaylistForm(props: Props): ReactElement {
@@ -15,6 +15,7 @@ function PlaylistForm(props: Props): ReactElement {
     <div>
       <form className={style.PlaylistForm}>
         <Input
+          data-testid="title_input"
           type="text"
           placeholder="Playlist Title"
           value={props.titleValue}
@@ -24,6 +25,7 @@ function PlaylistForm(props: Props): ReactElement {
           size="large"
         />
         <Input
+          data-testid="desc_input"
           type="text"
           placeholder="Playlist Description"
           value={props.descValue}
@@ -33,6 +35,7 @@ function PlaylistForm(props: Props): ReactElement {
           size="large"
         />
         <Button
+          data-testid="create_button"
           className={style.CreateButton}
           type="primary"
           block

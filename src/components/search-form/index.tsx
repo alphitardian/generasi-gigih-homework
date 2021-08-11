@@ -4,10 +4,10 @@ import "antd/dist/antd.css";
 import { InputEvent } from "../../interface/event";
 
 interface Props {
-  handleChange: (value: InputEvent) => void;
-  handleSubmit: () => void;
-  value: string;
-  placeholder: string;
+  handleChange?: (value: InputEvent) => void;
+  handleSubmit?: () => void;
+  value?: string;
+  placeholder?: string;
 }
 
 function SearchForm(props: Props): ReactElement {
@@ -23,6 +23,7 @@ function SearchForm(props: Props): ReactElement {
       enterButton
       size="large"
       style={{ width: 300 }}
+      data-testid="search_form"
     />
   );
 }

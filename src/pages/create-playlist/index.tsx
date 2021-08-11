@@ -113,7 +113,7 @@ function CreatePlaylist(): ReactElement {
 
   return (
     <div className={style.PlaylistContainer}>
-      <div className={style.Navbar}>
+      <div className={style.Navbar} data-testid="navbar">
         <div className={style.LeftSideNav}>
           <h1>Spotifai</h1>
         </div>
@@ -122,6 +122,7 @@ function CreatePlaylist(): ReactElement {
             <img src={imgUrl} className={style.ProfileImage} />
             <div className={style.DropdownContent}>
               <Button
+                data-testid="logout_button"
                 onClick={handleLogOut}
                 className={style.LogOutButton}
                 type="primary"
