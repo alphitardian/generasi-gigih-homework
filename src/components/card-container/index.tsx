@@ -17,10 +17,15 @@ function CardContainer(props: Props): ReactElement {
   return (
     <Card hoverable className={style.Container}>
       <Image source={props.imgUrl} alternative={props.altImg} />
-      <h2 className={style.TrackTitleText}>{props.trackTitle}</h2>
-      <p className={style.ArtistText}>{props.artistName}</p>
+      <h2 className={style.TrackTitleText} data-testid="track_title">
+        {props.trackTitle}
+      </h2>
+      <p className={style.ArtistText} data-testid="artist_name">
+        {props.artistName}
+      </p>
       {props.enableBtn ? (
         <Button
+          data-testid="select_button"
           type="primary"
           shape="round"
           size="large"

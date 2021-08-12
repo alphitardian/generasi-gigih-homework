@@ -10,6 +10,7 @@ function Image(props: Props): ReactElement {
   return (
     <div>
       <img
+        data-testid="track_image"
         className={style.AlbumImg}
         src={props.source}
         alt={props.alternative}
