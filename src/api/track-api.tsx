@@ -12,7 +12,7 @@ export const searchTrack = (props: SearchProps): AxiosPromise => {
     params: {
       q: props.query,
       type: "album,track,artist",
-      limit: 10,
+      limit: 20,
     },
   });
 };

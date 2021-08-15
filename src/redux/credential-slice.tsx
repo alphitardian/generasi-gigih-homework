@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getHashParams } from "../utils/utils";
 import { SliceState } from "../interface/credential-redux";
 
 const initialState: SliceState = {
@@ -19,10 +18,16 @@ export const credentialSlice = createSlice({
       state.userId = action.payload;
     },
     getToken: (state, action) => {
-      state.token = getHashParams(action.payload).get("access_token");
+      state.token = action.payload;
+      if (state.token !== null) {
+        localStorage.setItem("userToken", state.token);
+      }
     },
     getTokenType: (state, action) => {
-      state.tokenType = getHashParams(action.payload).get("token_type");
+      state.tokenType = action.payload;
+      if (state.tokenType !== null) {
+        localStorage.setItem("tokenType", state.tokenType);
+      }
     },
     getImageUrl: (state, action) => {
       state.imgUrl = action.payload;

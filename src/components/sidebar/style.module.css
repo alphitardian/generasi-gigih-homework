@@ -1,0 +1,22 @@
+.NavCollapse {
+  z-index: 3;
+  position: fixed;
+  height: 100vmax !important;
+}
+
+.NavRegular {
+  background-color: #001529 !important;
+  min-width: 300px !important;
+  height: 100vmax !important;
+  position: fixed;
+  z-index: 10;
+}
+
+.MenuItem {
+  background-color: #001a33;
+  margin: auto !important;
+  width: 93% !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  border-radius: 8px;
+}

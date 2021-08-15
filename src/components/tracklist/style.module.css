@@ -6,9 +6,10 @@
 }
 
 .ListContainer {
-  text-align: center;
+  text-align: start;
 }
 
 .Heading {
   color: white !important;
+  padding-left: 1em;
 }

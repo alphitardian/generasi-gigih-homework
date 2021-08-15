@@ -12,6 +12,7 @@ import { InputEvent, OnClickEvent } from "../../interface/event";
 import { getToken, getUserId } from "../../redux/credential-slice";
 import { Button } from "antd";
 import style from "./style.module.css";
+import { Link } from "react-router-dom";
 
 function CreatePlaylist(): ReactElement {
   const { userId, token, tokenType, imgUrl } = useAppSelector(
@@ -115,7 +116,9 @@ function CreatePlaylist(): ReactElement {
     <div className={style.PlaylistContainer}>
       <div className={style.Navbar} data-testid="navbar">
         <div className={style.LeftSideNav}>
-          <h1>Spotifai</h1>
+          <Link to="/home">
+            <h1>Spotifai</h1>
+          </Link>
         </div>
         <div className={style.RightSideNav}>
           <div className={style.Dropdown}>
@@ -143,6 +146,7 @@ function CreatePlaylist(): ReactElement {
       />
       <TrackList
         title="User Choice"
+        query=""
         list={diplayTrackList(selectedList, false)}
       />
     </div>

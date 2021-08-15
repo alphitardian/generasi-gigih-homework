@@ -1,0 +1,14 @@
+.SearchForm {
+  width: 300px;
+  padding-left: 1.5em;
+  margin-bottom: 2em;
+}
+
+@media screen and (max-width: 600px) {
+  .SearchForm {
+    width: 100%;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    z-index: 0;
+  }
+}

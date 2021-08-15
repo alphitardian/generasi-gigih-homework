@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Input } from "antd";
 import "antd/dist/antd.css";
 import { InputEvent } from "../../interface/event";
+import style from "./style.module.css";
 
 interface Props {
   handleChange?: (value: InputEvent) => void;
@@ -22,7 +23,7 @@ function SearchForm(props: Props): ReactElement {
       allowClear
       enterButton
       size="large"
-      style={{ width: 300 }}
+      className={style.SearchForm}
       data-testid="search_form"
     />
   );

@@ -1,17 +1,12 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { SearchForm } from "..";
 import { SIGNIN_URL } from "../../utils/constants";
 import { Button } from "antd";
 import style from "./style.module.css";
 import { getToken, getUserId } from "../../redux/credential-slice";
-import { InputEvent } from "../../interface/event";
 
 interface Props {
-  handleChange?: (event: InputEvent) => void;
-  handleSubmit?: () => void;
-  inputValue?: string;
   isUserLoggedin?: boolean;
   imageUrl?: string;
 }
@@ -27,6 +22,7 @@ function NavBar(props: Props): ReactElement {
   const handleLogOut = () => {
     dispatch(getUserId(""));
     dispatch(getToken(""));
+    localStorage.removeItem("userToken");
     location.reload();
   };
 
@@ -82,7 +78,7 @@ function NavBar(props: Props): ReactElement {
     } else {
       return (
         <Button
-          className={style.PlaylistButton}
+          className={style.LoginButton}
           href={SIGNIN_URL}
           data-testid="login_button"
         >
@@ -95,13 +91,15 @@ function NavBar(props: Props): ReactElement {
   return (
     <div className={style.Navbar} data-testid="navbar">
       <div className={style.LeftSideNav}>
-        <h1>Spotifai</h1>
-        <SearchForm
+        <Link to="/home">
+          <h1>Spotifai</h1>
+        </Link>
+        {/* <SearchForm
           placeholder="Search"
           handleChange={props.handleChange}
           value={props.inputValue}
           handleSubmit={props.handleSubmit}
-        />
+        /> */}
       </div>
       <div className={style.RightSideNav}>
         {checkUserLoggedIn()}

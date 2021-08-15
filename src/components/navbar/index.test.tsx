@@ -11,11 +11,9 @@ test("should display all navbar component when user is not loggedin", () => {
     </Provider>
   );
   const navBar = screen.getByTestId("navbar");
-  const searchForm = screen.getByTestId("search_form");
   const loginButton = screen.getByTestId("login_button");
 
   expect(navBar).toBeInTheDocument();
-  expect(searchForm).toBeInTheDocument();
   expect(loginButton).toBeInTheDocument();
 });
 
@@ -29,14 +27,12 @@ test("should display all navbar component when user is loggedin", () => {
     </Provider>
   );
   const navBar = screen.getByTestId("navbar");
-  const searchForm = screen.getByTestId("search_form");
   const createPlaylistButton = screen.getByTestId(
     "create_playlist_button_disabled"
   );
   const profileImage = screen.getByTestId("profile_img");
 
   expect(navBar).toBeInTheDocument();
-  expect(searchForm).toBeInTheDocument();
   expect(createPlaylistButton).toBeInTheDocument();
   expect(profileImage).toBeInTheDocument();
 });
