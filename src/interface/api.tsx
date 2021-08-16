@@ -46,3 +46,14 @@ export interface NewReleaseResponseType {
   artists: ArtistsResponse[];
   href: string;
 }
+
+export interface ShowsResponseDetailType {
+  id: string;
+  name: string;
+  publisher: string;
+  images: ImagesResponse[];
+}
+
+export interface ShowsResponse {
+  show: ShowsResponseDetailType;
+}

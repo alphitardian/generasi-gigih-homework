@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { NewReleaseResponseType, TrackResponseType } from "../interface/api";
+import {
+  NewReleaseResponseType,
+  ShowsResponse,
+  TrackResponseType,
+} from "../interface/api";
 
 interface SliceState {
   trackList: TrackResponseType[];
   selectedList: TrackResponseType[];
   selectedUri: string[];
   newReleases: NewReleaseResponseType[];
-  userShows: any[];
+  userShows: ShowsResponse[];
 }
 
 const initialState: SliceState = {
