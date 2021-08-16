@@ -16,27 +16,48 @@ interface Props {
 function CardContainer(props: Props): ReactElement {
   return (
     <Card hoverable className={style.Container}>
-      <Image source={props.imgUrl} alternative={props.altImg} />
-      <h2 className={style.TrackTitleText} data-testid="track_title">
-        {props.trackTitle}
-      </h2>
-      <p className={style.ArtistText} data-testid="artist_name">
-        {props.artistName}
-      </p>
-      {props.enableBtn ? (
-        <Button
-          data-testid="select_button"
-          type="primary"
-          shape="round"
-          size="large"
-          block
-          onClick={props.onClick}
-        >
-          {props.btnName}
-        </Button>
-      ) : (
-        <></>
-      )}
+      <div className={style.MobileContainer}>
+        <div>
+          <Image source={props.imgUrl} alternative={props.altImg} />
+        </div>
+        <div>
+          <h2
+            className={
+              props.enableBtn
+                ? style.TrackTitleButtonEnable
+                : style.TrackTitleText
+            }
+            data-testid="track_title"
+          >
+            {props.trackTitle}
+          </h2>
+          <p
+            className={
+              props.enableBtn ? style.ArtistTextButtonEnable : style.ArtistText
+            }
+            data-testid="artist_name"
+          >
+            {props.artistName}
+          </p>
+        </div>
+        <div>
+          {props.enableBtn ? (
+            <Button
+              data-testid="select_button"
+              type="primary"
+              shape="round"
+              size="large"
+              block
+              onClick={props.onClick}
+              className={style.Button}
+            >
+              {props.btnName}
+            </Button>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
     </Card>
   );
 }

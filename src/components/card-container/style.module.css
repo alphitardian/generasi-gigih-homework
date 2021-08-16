@@ -11,7 +11,6 @@
 
 .TrackTitleText {
   font-weight: bold;
-  /* letter-spacing: 1px; */
   white-space: nowrap;
   overflow: hidden;
   margin-top: 0.5em;
@@ -28,4 +27,64 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .MobileContainer {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    width: auto;
+    text-align: start;
+    align-items: center !important;
+    column-gap: 1em;
+  }
+
+  .Container {
+    width: 100%;
+    margin: 0 !important;
+    margin-bottom: 0.5em !important;
+    align-items: center !important;
+  }
+
+  .TrackTitleText {
+    font-size: medium;
+    max-width: 175px;
+    margin-top: -0.5em;
+  }
+
+  .ArtistText {
+    font-size: small;
+    max-width: 150px;
+    margin-bottom: -0.5em;
+  }
+
+  .TrackTitleButtonEnable {
+    font-size: medium;
+    max-width: 175px;
+    margin-top: -0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  .ArtistTextButtonEnable {
+    font-size: small;
+    max-width: 150px;
+    margin-top: -0.5em;
+    margin-bottom: -0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  .Button {
+    height: auto !important;
+    padding: 0 !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .Button span {
+    font-size: small !important;
+  }
 }
