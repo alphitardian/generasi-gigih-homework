@@ -25,3 +25,24 @@ export interface TrackResponseType {
   artists: string[];
   album: string[];
 }
+
+export interface ImagesResponse {
+  height: number;
+  url: string;
+  width: number;
+}
+
+export interface ArtistsResponse {
+  id: string;
+  uri: string;
+  name: string;
+  type: string;
+}
+
+export interface NewReleaseResponseType {
+  uri: string;
+  name: string;
+  images: ImagesResponse[];
+  artists: ArtistsResponse[];
+  href: string;
+}

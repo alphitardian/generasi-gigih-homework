@@ -24,12 +24,13 @@ import {
 import style from "./style.module.css";
 
 function SearchScreen(): ReactElement {
-  const { token, tokenType, imgUrl, isLoggedin } = useAppSelector(
+  const { token, tokenType, isLoggedin } = useAppSelector(
     (state) => state.credential
   );
   const { trackList, selectedList, selectedUri } = useAppSelector(
     (state) => state.track
   );
+  const { imgUrl } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [query, setQuery] = useState("");
 
@@ -102,17 +103,6 @@ function SearchScreen(): ReactElement {
     if (list.length > 0) {
       return (
         <div>
-          {selectedList.length > 0 ? (
-            <div>
-              <TrackList
-                title="User Choice"
-                query=""
-                list={diplayTrackList(selectedList, false)}
-              />
-            </div>
-          ) : (
-            <></>
-          )}
           <TrackList
             title="Result"
             query={query}
@@ -133,6 +123,12 @@ function SearchScreen(): ReactElement {
       <Layout className={style.Container}>
         <Sidebar keyNav="search" />
         <Content className={style.MainContent}>
+          {selectedUri.length > 0 && (
+            <div className={style.FloatCard}>
+              <p>{selectedUri.length} tracks selected</p>
+              <div className={style.StripAccent}></div>
+            </div>
+          )}
           <h1>Search</h1>
           <SearchForm
             handleChange={handleChange}

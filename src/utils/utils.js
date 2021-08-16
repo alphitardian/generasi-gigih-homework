@@ -1,4 +1,6 @@
 /* eslint-disable no-use-before-define */
+import React from "react";
+
 export const checkImageAvailability = (list) => {
   let image = [];
   if (list.images.length > 0) {
@@ -37,4 +39,17 @@ export const getHashParams = (url) => {
   const hashUrl = url.substr(1);
   const hashComponent = new URLSearchParams(hashUrl);
   return hashComponent;
+};
+
+export const showGreeting = (name) => {
+  const date = new Date();
+  const hours = date.getHours();
+
+  if (hours < 12) {
+    return <h1>Good Morning, {name}!</h1>;
+  } else if (hours >= 12) {
+    return <h1>Good Afternoon, {name}!</h1>;
+  } else if (hours > 18) {
+    return <h1>Good Evening, {name}!</h1>;
+  }
 };

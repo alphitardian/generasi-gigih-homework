@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TrackResponseType } from "../interface/api";
+import { NewReleaseResponseType, TrackResponseType } from "../interface/api";
 
 interface SliceState {
   trackList: TrackResponseType[];
   selectedList: TrackResponseType[];
   selectedUri: string[];
+  newReleases: NewReleaseResponseType[];
+  userShows: any[];
 }
 
 const initialState: SliceState = {
   trackList: [],
   selectedList: [],
   selectedUri: [],
+  newReleases: [],
+  userShows: [],
 };
 
 // Slice
@@ -27,10 +31,21 @@ export const trackSlice = createSlice({
     getSelectedUri: (state, action) => {
       state.selectedUri = action.payload;
     },
+    getNewReleases: (state, action) => {
+      state.newReleases = action.payload;
+    },
+    getUserShows: (state, action) => {
+      state.userShows = action.payload;
+    },
   },
 });
 
-export const { getTrackList, getSelectedList, getSelectedUri } =
-  trackSlice.actions;
+export const {
+  getTrackList,
+  getSelectedList,
+  getSelectedUri,
+  getNewReleases,
+  getUserShows,
+} = trackSlice.actions;
 
 export default trackSlice.reducer;

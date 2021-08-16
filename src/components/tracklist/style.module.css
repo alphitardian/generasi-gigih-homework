@@ -1,8 +1,8 @@
 .TrackList {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-left: 1em;
 }
 
 .ListContainer {
@@ -12,4 +12,11 @@
 .Heading {
   color: white !important;
   padding-left: 1em;
+}
+
+@media screen and (max-width: 600px) {
+  .TrackList {
+    justify-content: center;
+    margin-left: 0;
+  }
 }

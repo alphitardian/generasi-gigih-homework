@@ -39,12 +39,13 @@
   font-weight: 600;
   padding-left: 2em;
   padding-right: 2em;
-  padding-top: 0.3em;
+  padding-top: 0.5em;
   border-radius: 40px;
   color: white;
   background-color: #1890ff;
   height: 32px;
   transition: 0.5s ease-out;
+  line-height: normal !important;
 }
 
 .ActiveButton:hover {
@@ -83,32 +84,12 @@
   font-weight: bold;
 }
 
-.Dropdown {
-  position: relative;
-  display: inline-block;
-}
+@media screen and (max-width: 600px) {
+  .ActiveButton {
+    display: none;
+  }
 
-.DropdownContent {
-  display: none;
-  position: absolute;
-  padding: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
-  border-radius: 4px;
-  right: 45px;
-  background-color: #f1f1f1;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.DropdownContent .LogOutButton {
-  width: 150px;
-}
-
-.Dropdown:hover .DropdownContent {
-  display: block;
-}
-
-.DropdownContent:hover .LogOutButton {
-  background-color: rgb(190, 0, 0) !important;
+  .PlaylistButton {
+    display: none;
+  }
 }

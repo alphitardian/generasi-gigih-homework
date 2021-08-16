@@ -8,7 +8,7 @@ interface Props {
   altImg: string;
   trackTitle: string;
   artistName: string;
-  btnName: string;
+  btnName?: string;
   enableBtn: boolean;
   onClick?: () => void;
 }

@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios";
 import { SPOTIFY_ENDPOINT } from "../utils/constants";
-import { SearchProps, PlaylistProps } from "../interface/api";
+import { SearchProps, PlaylistProps, CredentialProps } from "../interface/api";
 
 export const searchTrack = (props: SearchProps): AxiosPromise => {
   return axios.get(`${SPOTIFY_ENDPOINT}/search`, {
@@ -56,4 +56,28 @@ export const addItemToPlaylist = (props: PlaylistProps): AxiosPromise => {
     data,
     config
   );
+};
+
+export const getAllNewReleases = (props: CredentialProps): AxiosPromise => {
+  return axios.get(`${SPOTIFY_ENDPOINT}/browse/new-releases`, {
+    headers: {
+      Authorization: `${props.tokenType} ${props.token}`,
+      "Content-Type": "application/json",
+    },
+    params: {
+      limit: 5,
+    },
+  });
+};
+
+export const getTopUserShows = (props: CredentialProps): AxiosPromise => {
+  return axios.get(`${SPOTIFY_ENDPOINT}/me/shows`, {
+    headers: {
+      Authorization: `${props.tokenType} ${props.token}`,
+      "Content-Type": "application/json",
+    },
+    params: {
+      limit: 5,
+    },
+  });
 };

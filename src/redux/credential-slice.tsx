@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SliceState } from "../interface/credential-redux";
+import { CredentialState } from "../interface/user-credential";
 
-const initialState: SliceState = {
+const initialState: CredentialState = {
   userId: "",
   token: "",
   tokenType: "",
-  imgUrl: "",
   isLoggedin: false,
 };
 
@@ -29,16 +28,13 @@ export const credentialSlice = createSlice({
         localStorage.setItem("tokenType", state.tokenType);
       }
     },
-    getImageUrl: (state, action) => {
-      state.imgUrl = action.payload;
-    },
     getIsLoggedIn: (state, action) => {
       state.isLoggedin = action.payload;
     },
   },
 });
 
-export const { getToken, getTokenType, getUserId, getImageUrl, getIsLoggedIn } =
+export const { getToken, getTokenType, getUserId, getIsLoggedIn } =
   credentialSlice.actions;
 
 export default credentialSlice.reducer;

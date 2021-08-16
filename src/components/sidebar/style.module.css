@@ -20,3 +20,28 @@
   margin-bottom: 1em !important;
   border-radius: 8px;
 }
+
+.MenuItemLogout {
+  background-color: #d4371b;
+  margin: auto !important;
+  width: 93% !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  border-radius: 8px;
+}
+
+.MenuItemCreatePlaylist {
+  background-color: #001a33;
+  margin: auto !important;
+  width: 93% !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  border-radius: 8px;
+  display: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .MenuItemCreatePlaylist {
+    display: block !important;
+  }
+}

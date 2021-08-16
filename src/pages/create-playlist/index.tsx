@@ -15,10 +15,11 @@ import style from "./style.module.css";
 import { Link } from "react-router-dom";
 
 function CreatePlaylist(): ReactElement {
-  const { userId, token, tokenType, imgUrl } = useAppSelector(
+  const { userId, token, tokenType } = useAppSelector(
     (state) => state.credential
   );
   const { selectedList, selectedUri } = useAppSelector((state) => state.track);
+  const { imgUrl } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const [inputValue, setInputValue] = useState({
