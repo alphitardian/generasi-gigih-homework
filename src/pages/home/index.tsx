@@ -22,6 +22,7 @@ import { Redirect } from "react-router-dom";
 import { Layout } from "antd";
 import { getAllNewReleases, getTopUserShows } from "../../api/track-api";
 import { getNewReleases, getUserShows } from "../../redux/track-slice";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 function Home(): ReactElement {
   const { token, tokenType, isLoggedin } = useAppSelector(
@@ -78,7 +79,7 @@ function Home(): ReactElement {
   const displayNewReleases = () => {
     return (
       <div>
-        <h1 className={style.SubHeading}>New Releases</h1>
+        <h2 className={style.SubHeading}>New Releases</h2>
         <div className={style.TrackContent}>
           {newReleases.map((item) => {
             return (
@@ -100,7 +101,7 @@ function Home(): ReactElement {
   const displayUserShows = () => {
     return (
       <div>
-        <h1 className={style.SubHeading}>Your Top Shows</h1>
+        <h2 className={style.SubHeading}>Your Top Shows</h2>
         <div className={style.TrackContent}>
           {userShows.map((item) => {
             return (
@@ -138,7 +139,10 @@ function Home(): ReactElement {
                 <div>{displayUserShows()}</div>
               </div>
             ) : (
-              <h1>Please Log In First</h1>
+              <div className={style.LoginAlert}>
+                <InfoCircleOutlined className={style.IconStyle} />
+                <h1>Please Log In First</h1>
+              </div>
             )}
           </Content>
         </Layout>

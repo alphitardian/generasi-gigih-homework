@@ -22,11 +22,13 @@ function TrackList(props: Props): ReactElement {
   return (
     <div className={style.ListContainer}>
       {props.query !== "" ? (
-        <h2 className={style.Heading}>
+        <h2 className={style.Heading} data-testid="heading">
           {props.title} for {props.query}
         </h2>
       ) : (
-        <h2 className={style.Heading}>{props.title}</h2>
+        <h2 className={style.Heading} data-testid="heading">
+          {props.title}
+        </h2>
       )}
       <div className={style.TrackList}>{props.list}</div>
     </div>

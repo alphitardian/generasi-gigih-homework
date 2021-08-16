@@ -47,9 +47,9 @@ export const showGreeting = (name) => {
 
   if (hours < 12) {
     return <h1>Good Morning, {name}!</h1>;
+  } else if (hours >= 18) {
+    return <h1>Good Evening, {name}!</h1>;
   } else if (hours >= 12) {
     return <h1>Good Afternoon, {name}!</h1>;
-  } else if (hours > 18) {
-    return <h1>Good Evening, {name}!</h1>;
   }
 };

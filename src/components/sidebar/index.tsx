@@ -44,6 +44,7 @@ function Sidebar(props: Props): ReactElement {
         setNavCollapse(collapse);
       }}
       className={navCollapse ? style.NavCollapse : style.NavRegular}
+      data-testid="sidebar"
     >
       <Menu theme="dark" mode="inline" defaultSelectedKeys={[props.keyNav]}>
         <Menu.Item key="home" icon={<HomeFilled />} className={style.MenuItem}>

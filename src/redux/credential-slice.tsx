@@ -8,7 +8,6 @@ const initialState: CredentialState = {
   isLoggedin: false,
 };
 
-// Slice
 export const credentialSlice = createSlice({
   name: "credential",
   initialState: initialState,

@@ -1,6 +1,12 @@
 import React, { ReactElement, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { PlaylistForm, TrackList, CardContainer } from "../../components";
+import { useAppSelector } from "../../redux/hooks";
+import {
+  PlaylistForm,
+  TrackList,
+  CardContainer,
+  NavBar,
+  Sidebar,
+} from "../../components";
 import {
   checkImageAvailability,
   filterTrackList,
@@ -9,23 +15,22 @@ import {
 import { createPlaylist, addItemToPlaylist } from "../../api/track-api";
 import { PlaylistProps, TrackResponseType } from "../../interface/api";
 import { InputEvent, OnClickEvent } from "../../interface/event";
-import { getToken, getUserId } from "../../redux/credential-slice";
-import { Button } from "antd";
 import style from "./style.module.css";
-import { Link } from "react-router-dom";
+import { Layout } from "antd";
 
 function CreatePlaylist(): ReactElement {
-  const { userId, token, tokenType } = useAppSelector(
+  const { userId, token, tokenType, isLoggedin } = useAppSelector(
     (state) => state.credential
   );
   const { selectedList, selectedUri } = useAppSelector((state) => state.track);
   const { imgUrl } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
 
   const [inputValue, setInputValue] = useState({
     titlePlaylist: "",
     descPlaylist: "",
   });
+
+  const { Header, Content } = Layout;
 
   const diplayTrackList = (list: TrackResponseType[], enableBtn: boolean) => {
     return filterTrackList(list).map((item: TrackResponseType) => {
@@ -64,9 +69,7 @@ function CreatePlaylist(): ReactElement {
         tokenType: tokenType,
       };
 
-      addItemToPlaylist(propsAddItem).then((response) => {
-        console.log(response);
-      });
+      addItemToPlaylist(propsAddItem);
 
       setInputValue({
         titlePlaylist: "",
@@ -107,50 +110,29 @@ function CreatePlaylist(): ReactElement {
     }
   };
 
-  const handleLogOut = () => {
-    dispatch(getUserId(""));
-    dispatch(getToken(""));
-    location.reload();
-  };
-
   return (
-    <div className={style.PlaylistContainer}>
-      <div className={style.Navbar} data-testid="navbar">
-        <div className={style.LeftSideNav}>
-          <Link to="/home">
-            <h1>Spotifai</h1>
-          </Link>
-        </div>
-        <div className={style.RightSideNav}>
-          <div className={style.Dropdown}>
-            <img src={imgUrl} className={style.ProfileImage} />
-            <div className={style.DropdownContent}>
-              <Button
-                data-testid="logout_button"
-                onClick={handleLogOut}
-                className={style.LogOutButton}
-                type="primary"
-                danger
-              >
-                <a href="/">Log Out</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h1 style={{ marginTop: 75 }}>Create Playlist</h1>
-      <PlaylistForm
-        titleValue={inputValue.titlePlaylist}
-        descValue={inputValue.descPlaylist}
-        handleSubmit={handleSubmitPlaylist}
-        onChange={handleOnChangePlaylist}
-      />
-      <TrackList
-        title="User Choice"
-        query=""
-        list={diplayTrackList(selectedList, false)}
-      />
-    </div>
+    <Layout>
+      <Header>
+        <NavBar isUserLoggedin={isLoggedin} imageUrl={imgUrl} />
+      </Header>
+      <Layout>
+        <Sidebar keyNav="search" />
+        <Content className={style.PlaylistContainer}>
+          <h1>Create Playlist</h1>
+          <PlaylistForm
+            titleValue={inputValue.titlePlaylist}
+            descValue={inputValue.descPlaylist}
+            handleSubmit={handleSubmitPlaylist}
+            onChange={handleOnChangePlaylist}
+          />
+          <TrackList
+            title="User Choice"
+            query=""
+            list={diplayTrackList(selectedList, false)}
+          />
+        </Content>
+      </Layout>
+    </Layout>
   );
 }
 

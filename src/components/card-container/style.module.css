@@ -29,10 +29,30 @@
   color: white;
 }
 
-@media screen and (max-width: 600px) {
+.TrackTitleButtonEnable {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 0.5em;
+  text-overflow: ellipsis;
+  color: white;
+}
+
+.ArtistTextButtonEnable {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1.5em;
+  margin-top: -0.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
   .MobileContainer {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 5fr 1fr;
     width: auto;
     text-align: start;
     align-items: center !important;
@@ -48,19 +68,19 @@
 
   .TrackTitleText {
     font-size: medium;
-    max-width: 175px;
+    max-width: 250px;
     margin-top: -0.5em;
   }
 
   .ArtistText {
     font-size: small;
-    max-width: 150px;
+    max-width: 250px;
     margin-bottom: -0.5em;
   }
 
   .TrackTitleButtonEnable {
     font-size: medium;
-    max-width: 175px;
+    max-width: 250px;
     margin-top: -0.5em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -69,7 +89,7 @@
 
   .ArtistTextButtonEnable {
     font-size: small;
-    max-width: 150px;
+    max-width: 250px;
     margin-top: -0.5em;
     margin-bottom: -0.5em;
     overflow: hidden;
@@ -80,11 +100,47 @@
   .Button {
     height: auto !important;
     padding: 0 !important;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 
   .Button span {
     font-size: small !important;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .TrackTitleText {
+    max-width: 250px;
+  }
+
+  .ArtistText {
+    max-width: 250px;
+  }
+
+  .TrackTitleButtonEnable {
+    max-width: 200px;
+  }
+
+  .ArtistTextButtonEnable {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .TrackTitleText {
+    max-width: 185px;
+  }
+
+  .ArtistText {
+    max-width: 150px;
+  }
+
+  .TrackTitleButtonEnable {
+    max-width: 125px;
+  }
+
+  .ArtistTextButtonEnable {
+    max-width: 125px;
   }
 }

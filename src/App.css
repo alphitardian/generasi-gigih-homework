@@ -43,3 +43,7 @@ body {
   background-attachment: fixed;
   background-color: #000a1a !important;
 }
+
+h1 {
+  color: white !important;
+}

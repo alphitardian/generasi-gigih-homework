@@ -1,78 +1,22 @@
 .PlaylistContainer {
-  padding-top: 2em;
+  margin-left: 300px;
+  height: 100vh;
+  background-color: #000a1a !important;
+  text-align: start;
 }
 
-.Navbar {
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 1em;
-  padding-right: 1em;
-  box-shadow: 0px 2px 3px rgb(39, 39, 39);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  background-color: rgb(20, 20, 20);
-  height: 70px;
-}
-
-h1 {
-  color: white;
-}
-
-.ProfileImage {
-  width: 50px;
-  margin-right: 2.5em;
-  border-radius: 25px;
-}
-
-.RightSideNav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.LeftSideNav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.LeftSideNav h1 {
-  margin-bottom: 0.1em;
+.PlaylistContainer h1 {
+  margin-top: 1em;
+  margin-left: 1em;
   margin-right: 1em;
+  margin-bottom: 1.5em;
+  text-align: start;
+  font-size: x-large;
   font-weight: 700;
 }
 
-.Dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.DropdownContent {
-  display: none;
-  position: absolute;
-  padding: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
-  border-radius: 4px;
-  right: 45px;
-  background-color: #f1f1f1;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.DropdownContent .LogOutButton {
-  width: 150px;
-}
-
-.Dropdown:hover .DropdownContent {
-  display: block;
-}
-
-.DropdownContent:hover .LogOutButton {
-  background-color: rgb(190, 0, 0) !important;
+@media screen and (max-width: 425px) {
+  .PlaylistContainer {
+    margin-left: 0;
+  }
 }

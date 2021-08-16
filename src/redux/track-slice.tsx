@@ -21,7 +21,6 @@ const initialState: SliceState = {
   userShows: [],
 };
 
-// Slice
 export const trackSlice = createSlice({
   name: "track",
   initialState: initialState,
