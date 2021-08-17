@@ -21,17 +21,21 @@ function Profile(): ReactElement {
           <Content className={style.MainContent}>
             <h1>Profile</h1>
             <div className={style.GridItem}>
-              <img src={imgUrl} alt="Profile Image" />
+              <img
+                src={imgUrl}
+                alt="Profile Image"
+                data-testid="profile_image"
+              />
             </div>
             <div className={style.GridItem}>
               <h2>Name</h2>
-              <p>{name}</p>
+              <p data-testid="user_name">{name}</p>
               <h2>Email</h2>
-              <p>{email}</p>
+              <p data-testid="user_email">{email}</p>
               <h2>Country</h2>
-              <p>{country}</p>
+              <p data-testid="user_country">{country}</p>
               <h2>Product Selection</h2>
-              <p>{product}</p>
+              <p data-testid="user_product">{product}</p>
             </div>
           </Content>
         </Layout>

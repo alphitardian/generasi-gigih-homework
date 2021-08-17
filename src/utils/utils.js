@@ -46,10 +46,10 @@ export const showGreeting = (name) => {
   const hours = date.getHours();
 
   if (hours < 12) {
-    return <h1>Good Morning, {name}!</h1>;
+    return <h1 data-testid="greeting">Good Morning, {name}!</h1>;
   } else if (hours >= 18) {
-    return <h1>Good Evening, {name}!</h1>;
+    return <h1 data-testid="greeting">Good Evening, {name}!</h1>;
   } else if (hours >= 12) {
-    return <h1>Good Afternoon, {name}!</h1>;
+    return <h1 data-testid="greeting">Good Afternoon, {name}!</h1>;
   }
 };
