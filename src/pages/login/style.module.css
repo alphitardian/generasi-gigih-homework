@@ -1,0 +1,101 @@
+.MainContent {
+  background-color: #000a1a !important;
+}
+
+.Greeting {
+  width: 50%;
+  text-align: start;
+  position: absolute;
+  top: 25%;
+  left: 5%;
+}
+
+.Greeting h1 {
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.Greeting p {
+  color: white;
+  font-size: 24px;
+}
+
+.Greeting button {
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 40px;
+  font-size: larger;
+  font-weight: 700;
+  height: fit-content;
+}
+
+.MainContent img {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+  width: 45%;
+}
+
+.Footer {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  background-color: #000a1a !important;
+}
+
+.Footer p {
+  margin-top: -0.5em;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .Greeting h1 {
+    font-size: 28px;
+  }
+  .Greeting p {
+    font-size: 18px;
+  }
+  .Greeting {
+    top: 30%;
+  }
+  .MainContent img {
+    right: 5%;
+    top: 15%;
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .MainContent {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
+  .Greeting {
+    position: relative;
+    width: 95%;
+    padding-top: 2em;
+    padding: 1em;
+    left: 0;
+  }
+  .Greeting p {
+    font-size: 14px;
+  }
+  .Greeting button {
+    font-size: small;
+    height: fit-content;
+  }
+  .MainContent img {
+    position: relative;
+    width: 100%;
+    right: 0;
+  }
+  .Footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: #000a1a !important;
+  }
+}

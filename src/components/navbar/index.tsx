@@ -70,6 +70,9 @@ function NavBar(props: Props): ReactElement {
   return (
     <div className={style.Navbar} data-testid="navbar">
       <div className={style.LeftSideNav}>
+        <div className={style.AppIcon}>
+          <i className="fab fa-spotify fa-2x"></i>
+        </div>
         <Link to="/home">
           <h1>Spotifai</h1>
         </Link>

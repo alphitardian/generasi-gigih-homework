@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   NewReleaseResponseType,
+  PlaylistResponseDetail,
   ShowsResponse,
   TrackResponseType,
 } from "../interface/api";
 
-interface SliceState {
+export interface SliceState {
   trackList: TrackResponseType[];
   selectedList: TrackResponseType[];
   selectedUri: string[];
   newReleases: NewReleaseResponseType[];
   userShows: ShowsResponse[];
+  userPlaylists: PlaylistResponseDetail[];
 }
 
 const initialState: SliceState = {
@@ -19,6 +21,7 @@ const initialState: SliceState = {
   selectedUri: [],
   newReleases: [],
   userShows: [],
+  userPlaylists: [],
 };
 
 export const trackSlice = createSlice({
@@ -40,6 +43,9 @@ export const trackSlice = createSlice({
     getUserShows: (state, action) => {
       state.userShows = action.payload;
     },
+    getUserPlaylist: (state, action) => {
+      state.userPlaylists = action.payload;
+    },
   },
 });
 
@@ -49,6 +55,7 @@ export const {
   getSelectedUri,
   getNewReleases,
   getUserShows,
+  getUserPlaylist,
 } = trackSlice.actions;
 
 export default trackSlice.reducer;

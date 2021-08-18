@@ -57,3 +57,18 @@ export interface ShowsResponseDetailType {
 export interface ShowsResponse {
   show: ShowsResponseDetailType;
 }
+
+export interface PlaylistResponseDetail {
+  name: string;
+  owner: {
+    display_name: string;
+  };
+  images: ImagesResponse[];
+  type: string;
+  uri: string;
+  href: string;
+}
+
+export interface PlaylistResponse {
+  items: PlaylistResponseDetail[];
+}

@@ -6,6 +6,7 @@ import {
   mockNewReleaseData,
   mockShowsData,
   mockTrackList,
+  mockUserPlaylists,
 } from "./mock-data/api-mock-data";
 
 const server = setupServer(
@@ -23,6 +24,9 @@ const server = setupServer(
   }),
   rest.get(`${SPOTIFY_ENDPOINT}/search`, (request, response, context) => {
     return response(context.json(mockTrackList));
+  }),
+  rest.get(`${SPOTIFY_ENDPOINT}/me/playlists`, (request, response, context) => {
+    return response(context.json(mockUserPlaylists));
   })
 );
 

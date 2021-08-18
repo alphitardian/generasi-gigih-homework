@@ -1,9 +1,12 @@
+import { mockUserPlaylists } from "../../api/mock-data/api-mock-data";
 import reducer, {
   getTrackList,
   getSelectedList,
   getSelectedUri,
   getNewReleases,
   getUserShows,
+  getUserPlaylist,
+  SliceState,
 } from "../track-slice";
 
 const mockTrackResponse = {
@@ -49,12 +52,32 @@ const mockUserShowsResponse = {
   },
 };
 
-const initialState = {
+const mockUserPlaylistResponse = {
+  description: "",
+  href: "https://api.spotify.com/v1/playlists/6oGUWCtW8lCN6WSVaa30aZ",
+  id: "6oGUWCtW8lCN6WSVaa30aZ",
+  images: [
+    {
+      height: 640,
+      url: "https://mosaic.scdn.co/640/ab67616d0000b27363f96ed890a4188b250d2e69ab67616d0000b273b64001fa6292caefc7605550ab67616d0000b273df5022bdf1ac4bf52135c4beab67616d0000b273fac1a31af8bbe683356d4532",
+      width: 640,
+    },
+  ],
+  name: "K - P O P",
+  owner: {
+    display_name: "Ardian Pramudya",
+  },
+  type: "playlist",
+  uri: "spotify:playlist:6oGUWCtW8lCN6WSVaa30aZ",
+};
+
+const initialState: SliceState = {
   trackList: [],
   selectedList: [],
   selectedUri: [],
   newReleases: [],
   userShows: [],
+  userPlaylists: [],
 };
 
 test("should return initial state", () => {
@@ -64,6 +87,7 @@ test("should return initial state", () => {
     selectedUri: [],
     newReleases: [],
     userShows: [],
+    userPlaylists: [],
   });
 });
 
@@ -81,6 +105,7 @@ test("should able to add track", () => {
     selectedUri: [],
     newReleases: [],
     userShows: [],
+    userPlaylists: [],
   });
 });
 
@@ -98,6 +123,7 @@ test("should able to add selected track", () => {
     selectedUri: [],
     newReleases: [],
     userShows: [],
+    userPlaylists: [],
   });
 });
 
@@ -110,6 +136,7 @@ test("should able to add selected uri", () => {
     selectedUri: ["spotify:album:0tGPJ0bkWOUmH7MEOR77qc"],
     newReleases: [],
     userShows: [],
+    userPlaylists: [],
   });
 });
 
@@ -143,6 +170,7 @@ test("should able to add new releases track", () => {
       },
     ],
     userShows: [],
+    userPlaylists: [],
   });
 });
 
@@ -166,6 +194,39 @@ test("should able to add user show", () => {
             },
           ],
         },
+      },
+    ],
+    userPlaylists: [],
+  });
+});
+
+test("should able to add user playlist", () => {
+  expect(
+    reducer(initialState, getUserPlaylist([mockUserPlaylistResponse]))
+  ).toEqual({
+    trackList: [],
+    selectedList: [],
+    selectedUri: [],
+    newReleases: [],
+    userShows: [],
+    userPlaylists: [
+      {
+        description: "",
+        href: "https://api.spotify.com/v1/playlists/6oGUWCtW8lCN6WSVaa30aZ",
+        id: "6oGUWCtW8lCN6WSVaa30aZ",
+        images: [
+          {
+            height: 640,
+            url: "https://mosaic.scdn.co/640/ab67616d0000b27363f96ed890a4188b250d2e69ab67616d0000b273b64001fa6292caefc7605550ab67616d0000b273df5022bdf1ac4bf52135c4beab67616d0000b273fac1a31af8bbe683356d4532",
+            width: 640,
+          },
+        ],
+        name: "K - P O P",
+        owner: {
+          display_name: "Ardian Pramudya",
+        },
+        type: "playlist",
+        uri: "spotify:playlist:6oGUWCtW8lCN6WSVaa30aZ",
       },
     ],
   });

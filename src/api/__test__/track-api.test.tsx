@@ -11,11 +11,13 @@ import {
   mockCreatePlaylistData,
   mockNewReleaseData,
   mockShowsData,
+  mockUserPlaylists,
 } from "../mock-data/api-mock-data";
 import {
   addItemToPlaylist,
   createPlaylist,
   getAllNewReleases,
+  getUserPlaylists,
   searchTrack,
 } from "../track-api";
 
@@ -140,10 +142,7 @@ test("should able to create playlist", async () => {
       description: playlistProps.description,
     },
     {
-      headers: {
-        Authorization: `${playlistProps.tokenType} ${playlistProps.token}`,
-        "Content-Type": "application/json",
-      },
+      headers: headers,
     }
   );
   expect(axiosResponse.data).toEqual(mockCreatePlaylistData);
@@ -163,11 +162,28 @@ test("should able to add track to playlist", async () => {
       uris: playlistProps.selectedUri,
     },
     {
-      headers: {
-        Authorization: `${playlistProps.tokenType} ${playlistProps.token}`,
-        "Content-Type": "application/json",
-      },
+      headers: headers,
     }
   );
   expect(axiosResponse.data).toEqual(mockAddPlaylistTrack);
+});
+
+test("should able to get user playlists", async () => {
+  mockAxios.get.mockResolvedValueOnce(mockedResponse(mockUserPlaylists));
+
+  expect(mockAxios.get).not.toHaveBeenCalled();
+
+  const axiosResponse = await getUserPlaylists(credentialProps);
+
+  expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  expect(mockAxios.get).toHaveBeenCalledWith(
+    `${SPOTIFY_ENDPOINT}/me/playlists`,
+    {
+      headers: headers,
+      params: {
+        limit: 10,
+      },
+    }
+  );
+  expect(axiosResponse.data).toEqual(mockUserPlaylists);
 });

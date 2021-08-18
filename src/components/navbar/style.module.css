@@ -84,6 +84,12 @@
   font-weight: bold;
 }
 
+.AppIcon {
+  color: white;
+  margin-right: 1em;
+  padding-top: 0.75em;
+}
+
 @media screen and (max-width: 600px) {
   .ActiveButton {
     display: none;

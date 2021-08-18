@@ -1,34 +1,28 @@
 import React, { useEffect, ReactElement } from "react";
 import { CardContainer, NavBar, Sidebar } from "../../components";
-import {
-  getIsLoggedIn,
-  getUserId,
-  getToken,
-  getTokenType,
-} from "../../redux/credential-slice";
-import {
-  getCountry,
-  getEmail,
-  getImageUrl,
-  getName,
-  getProduct,
-} from "../../redux/user-slice";
 import style from "./style.module.css";
-import { getHashParams, showGreeting } from "../../utils/utils";
+import { showGreeting } from "../../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchUserId } from "../../api/user-api";
 import { CredentialProps } from "../../interface/api";
-import { Redirect } from "react-router-dom";
 import { Layout } from "antd";
-import { getAllNewReleases, getTopUserShows } from "../../api/track-api";
-import { getNewReleases, getUserShows } from "../../redux/track-slice";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import {
+  getAllNewReleases,
+  getTopUserShows,
+  getUserPlaylists,
+} from "../../api/track-api";
+import {
+  getNewReleases,
+  getUserPlaylist,
+  getUserShows,
+} from "../../redux/track-slice";
 
 function Home(): ReactElement {
   const { token, tokenType, isLoggedin } = useAppSelector(
     (state) => state.credential
   );
-  const { newReleases, userShows } = useAppSelector((state) => state.track);
+  const { newReleases, userShows, userPlaylists } = useAppSelector(
+    (state) => state.track
+  );
   const { imgUrl, name } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
@@ -41,37 +35,15 @@ function Home(): ReactElement {
   };
 
   useEffect(() => {
-    const token = getHashParams(document.location.hash).get("access_token");
-    const tokenType = getHashParams(document.location.hash).get("token_type");
-    dispatch(getToken(token));
-    dispatch(getTokenType(tokenType));
-    if (token === null) {
-      dispatch(getToken(localStorage.getItem("userToken")));
-      dispatch(getTokenType(localStorage.getItem("tokenType")));
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (token) {
-      fetchUserId(credentialProps).then((response) => {
-        dispatch(getUserId(response.data.id));
-        dispatch(getImageUrl(response.data.images[0].url));
-        dispatch(getName(response.data.display_name));
-        dispatch(getCountry(response.data.country));
-        dispatch(getEmail(response.data.email));
-        dispatch(getProduct(response.data.product));
-      });
-      dispatch(getIsLoggedIn(true));
-    }
-  });
-
-  useEffect(() => {
     if (token) {
       getAllNewReleases(credentialProps).then((response) => {
         dispatch(getNewReleases(response.data.albums.items));
       });
       getTopUserShows(credentialProps).then((response) => {
         dispatch(getUserShows(response.data.items));
+      });
+      getUserPlaylists(credentialProps).then((response) => {
+        dispatch(getUserPlaylist(response.data.items));
       });
     }
   }, []);
@@ -120,11 +92,30 @@ function Home(): ReactElement {
     );
   };
 
+  const displayUserPlaylists = () => {
+    return (
+      <div>
+        <h2 className={style.SubHeading}>Your Playlists</h2>
+        <div className={style.TrackContent}>
+          {userPlaylists.map((item) => {
+            return (
+              <CardContainer
+                enableBtn={false}
+                key={item.uri}
+                trackTitle={item.name}
+                artistName={item.owner.display_name}
+                imgUrl={item.images[0].url}
+                altImg={item.name}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
-      {isLoggedin && localStorage.getItem("userToken") && (
-        <Redirect to="/home" />
-      )}
       <Layout>
         <Header>
           <NavBar isUserLoggedin={isLoggedin} imageUrl={imgUrl} />
@@ -132,18 +123,12 @@ function Home(): ReactElement {
         <Layout>
           <Sidebar keyNav="home" />
           <Content className={style.MainContent}>
-            {isLoggedin ? (
-              <div>
-                {showGreeting(name)}
-                <div>{displayNewReleases()}</div>
-                <div>{displayUserShows()}</div>
-              </div>
-            ) : (
-              <div className={style.LoginAlert}>
-                <InfoCircleOutlined className={style.IconStyle} />
-                <h1>Please Log In First</h1>
-              </div>
-            )}
+            <div>
+              {showGreeting(name)}
+              <div>{displayNewReleases()}</div>
+              <div>{displayUserShows()}</div>
+              <div>{displayUserPlaylists()}</div>
+            </div>
           </Content>
         </Layout>
       </Layout>

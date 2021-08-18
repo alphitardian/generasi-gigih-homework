@@ -298,3 +298,122 @@ export const mockTrackList = {
     total: 6414,
   },
 };
+
+export const mockUserPlaylists = {
+  href: "https://api.spotify.com/v1/users/21zxostfnzdgv64psun4chuiy/playlists?offset=0&limit=3",
+  items: [
+    {
+      collaborative: false,
+      description: "",
+      external_urls: {
+        spotify: "https://open.spotify.com/playlist/6oGUWCtW8lCN6WSVaa30aZ",
+      },
+      href: "https://api.spotify.com/v1/playlists/6oGUWCtW8lCN6WSVaa30aZ",
+      id: "6oGUWCtW8lCN6WSVaa30aZ",
+      images: [
+        {
+          height: 640,
+          url: "https://mosaic.scdn.co/640/ab67616d0000b27363f96ed890a4188b250d2e69ab67616d0000b273b64001fa6292caefc7605550ab67616d0000b273df5022bdf1ac4bf52135c4beab67616d0000b273fac1a31af8bbe683356d4532",
+          width: 640,
+        },
+      ],
+      name: "K - P O P",
+      owner: {
+        display_name: "Ardian Pramudya",
+        external_urls: {
+          spotify: "https://open.spotify.com/user/21zxostfnzdgv64psun4chuiy",
+        },
+        href: "https://api.spotify.com/v1/users/21zxostfnzdgv64psun4chuiy",
+        id: "21zxostfnzdgv64psun4chuiy",
+        type: "user",
+        uri: "spotify:user:21zxostfnzdgv64psun4chuiy",
+      },
+      primary_color: null,
+      public: true,
+      snapshot_id: "NyxhMmM0NWExNDNjY2EwMmY3YTlmZjI0MjdhZTQ2ZGRhN2FmMTQwZmVj",
+      tracks: {
+        href: "https://api.spotify.com/v1/playlists/6oGUWCtW8lCN6WSVaa30aZ/tracks",
+        total: 7,
+      },
+      type: "playlist",
+      uri: "spotify:playlist:6oGUWCtW8lCN6WSVaa30aZ",
+    },
+    {
+      collaborative: false,
+      description: "",
+      external_urls: {
+        spotify: "https://open.spotify.com/playlist/26Ea93Lr6xar1icZgMJi0T",
+      },
+      href: "https://api.spotify.com/v1/playlists/26Ea93Lr6xar1icZgMJi0T",
+      id: "26Ea93Lr6xar1icZgMJi0T",
+      images: [
+        {
+          height: 640,
+          url: "https://i.scdn.co/image/ab67616d0000b273dd7006a14a1fc3474eb80d51",
+          width: 640,
+        },
+      ],
+      name: "💀💀",
+      owner: {
+        display_name: "Ardian Pramudya",
+        external_urls: {
+          spotify: "https://open.spotify.com/user/21zxostfnzdgv64psun4chuiy",
+        },
+        href: "https://api.spotify.com/v1/users/21zxostfnzdgv64psun4chuiy",
+        id: "21zxostfnzdgv64psun4chuiy",
+        type: "user",
+        uri: "spotify:user:21zxostfnzdgv64psun4chuiy",
+      },
+      primary_color: null,
+      public: true,
+      snapshot_id: "NSw4MjQyM2YxYjZiZDQxNzlmODBkMWYzNzYwNTFiOGYxNWM4MTY1ODBi",
+      tracks: {
+        href: "https://api.spotify.com/v1/playlists/26Ea93Lr6xar1icZgMJi0T/tracks",
+        total: 4,
+      },
+      type: "playlist",
+      uri: "spotify:playlist:26Ea93Lr6xar1icZgMJi0T",
+    },
+    {
+      collaborative: false,
+      description: "",
+      external_urls: {
+        spotify: "https://open.spotify.com/playlist/4bcr4X06MmaB7FCFJTRChu",
+      },
+      href: "https://api.spotify.com/v1/playlists/4bcr4X06MmaB7FCFJTRChu",
+      id: "4bcr4X06MmaB7FCFJTRChu",
+      images: [
+        {
+          height: 640,
+          url: "https://mosaic.scdn.co/640/ab67616d0000b2736ff60fdcf55f3cf7286d8fb9ab67616d0000b27394f532d509b6e8f0d65ee2dfab67616d0000b273d97820295d22c1198947634cab67616d0000b273e4789dab7e4b587254ac5bf5",
+          width: 640,
+        },
+      ],
+      name: "C L A S S I C",
+      owner: {
+        display_name: "Ardian Pramudya",
+        external_urls: {
+          spotify: "https://open.spotify.com/user/21zxostfnzdgv64psun4chuiy",
+        },
+        href: "https://api.spotify.com/v1/users/21zxostfnzdgv64psun4chuiy",
+        id: "21zxostfnzdgv64psun4chuiy",
+        type: "user",
+        uri: "spotify:user:21zxostfnzdgv64psun4chuiy",
+      },
+      primary_color: null,
+      public: true,
+      snapshot_id: "NSwyY2MwOTA4YmYwODY5MGMzYzk1NDhhMzY1OGJlNjlkMWI0Nzc4NTEw",
+      tracks: {
+        href: "https://api.spotify.com/v1/playlists/4bcr4X06MmaB7FCFJTRChu/tracks",
+        total: 4,
+      },
+      type: "playlist",
+      uri: "spotify:playlist:4bcr4X06MmaB7FCFJTRChu",
+    },
+  ],
+  limit: 3,
+  next: "https://api.spotify.com/v1/users/21zxostfnzdgv64psun4chuiy/playlists?offset=3&limit=3",
+  offset: 0,
+  previous: null,
+  total: 9,
+};

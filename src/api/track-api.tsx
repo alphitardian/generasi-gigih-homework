@@ -58,6 +58,18 @@ export const addItemToPlaylist = (props: PlaylistProps): AxiosPromise => {
   );
 };
 
+export const getUserPlaylists = (props: CredentialProps): AxiosPromise => {
+  return axios.get(`${SPOTIFY_ENDPOINT}/me/playlists`, {
+    headers: {
+      Authorization: `${props.tokenType} ${props.token}`,
+      "Content-Type": "application/json",
+    },
+    params: {
+      limit: 10,
+    },
+  });
+};
+
 export const getAllNewReleases = (props: CredentialProps): AxiosPromise => {
   return axios.get(`${SPOTIFY_ENDPOINT}/browse/new-releases`, {
     headers: {

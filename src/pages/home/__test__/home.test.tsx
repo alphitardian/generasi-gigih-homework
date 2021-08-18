@@ -8,8 +8,16 @@ import { getIsLoggedIn } from "../../../redux/credential-slice";
 import { getName } from "../../../redux/user-slice";
 import { CredentialProps } from "../../../interface/api";
 import { fetchUserId } from "../../../api/user-api";
-import { getAllNewReleases, getTopUserShows } from "../../../api/track-api";
-import { getNewReleases, getUserShows } from "../../../redux/track-slice";
+import {
+  getAllNewReleases,
+  getTopUserShows,
+  getUserPlaylists,
+} from "../../../api/track-api";
+import {
+  getNewReleases,
+  getUserPlaylist,
+  getUserShows,
+} from "../../../redux/track-slice";
 import { server } from "../../../api/mock-server";
 
 const credentialProps: CredentialProps = {
@@ -32,18 +40,16 @@ afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 test("should display all component", async () => {
-  store.dispatch(getIsLoggedIn(false));
+  store.dispatch(getIsLoggedIn(true));
 
   render(<MockHomeScreen />);
 
   const navBar = screen.getByTestId("navbar");
   const loginButton = screen.getByTestId("login_button");
-  const loginAlert = screen.getByText("Please Log In First");
   const sidebar = await screen.findByTestId("sidebar");
 
   expect(navBar).toBeInTheDocument();
   expect(loginButton).toBeInTheDocument();
-  expect(loginAlert).toBeInTheDocument();
   expect(sidebar).toBeInTheDocument();
 });
 
@@ -62,6 +68,9 @@ test("should display all component when user logged in", async () => {
     getTopUserShows(credentialProps).then((response) => {
       store.dispatch(getUserShows(response.data));
     });
+    getUserPlaylists(credentialProps).then((response) => {
+      store.dispatch(getUserPlaylist(response.data.items));
+    });
   });
 
   const navBar = screen.getByTestId("navbar");
@@ -70,6 +79,7 @@ test("should display all component when user logged in", async () => {
   const greeting = await screen.findByTestId("greeting");
   const newReleaseData = store.getState().track.newReleases;
   const userShows = store.getState().track.userShows;
+  const userPlaylist = store.getState().track.userPlaylists;
 
   expect(navBar).toBeInTheDocument();
   expect(loginButton).toBeInTheDocument();
@@ -77,4 +87,5 @@ test("should display all component when user logged in", async () => {
   expect(greeting).toBeInTheDocument();
   expect(newReleaseData).toHaveLength(2);
   expect(userShows).toHaveLength(2);
+  expect(userPlaylist).toHaveLength(3);
 });
