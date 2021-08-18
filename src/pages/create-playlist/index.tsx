@@ -116,7 +116,7 @@ function CreatePlaylist(): ReactElement {
         <NavBar isUserLoggedin={isLoggedin} imageUrl={imgUrl} />
       </Header>
       <Layout>
-        <Sidebar keyNav="search" />
+        <Sidebar keyNav="create-playlist" />
         <Content className={style.PlaylistContainer}>
           <h1>Create Playlist</h1>
           <PlaylistForm

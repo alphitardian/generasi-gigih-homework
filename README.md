@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Spotifai
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Spotifai is an web application that intergated with the Spotify API. You can search your favorite tracks, create a new playlist and see what just released.
 
-## Available Scripts
+## Spotifai Features
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+This are some capabilities from this web application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. See new release tracks
+2. See your top shows or podcasts
+3. Search your favorite tracks
+4. Create new playlist
+5. See your profile in details
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+There are several pages in this web application.
 
-### `yarn test`
+1. Home Page
+   In home page, you can see new release tracks and your top shows or podcasts.
+2. Search Page
+   In search page, you can search your favorite tracks and select it so that you can new create playlist with those tracks.
+3. Create Playlist Page
+   In create playlist page, you can define your playlist title and description, and finally you can create your playlist.
+4. Profile Page
+   In profile page, you can see your profile details such as, profile image, email and product type.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Spotifai Tech Stacks
 
-### `yarn build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project was built using [React.js](https://reactjs.org/) with all the supported library, such as [react-router](https://reactrouter.com/) for the router, [react-redux](https://redux.js.org/) for the state management, [axios](https://github.com/axios/axios) to get the data from Spotify API, and [react-testing-library](https://testing-library.com/) for testing. In this project, there is a little bit of Typescript, especially for the components. To make the UI/UX better, this project use [ant-design](https://ant.design/) for UI components library.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+This is the steps that you need to do if you want to try on your own.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Run App
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone this repository
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+git clone https://github.com/alphitardian/generasi-gigih-homework.git
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. Open the folder from your Command Prompt, Powershell or other terminal
+3. Install the packages
 
-## Learn More
+```
+npm install
+//or
+yarn install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Run the app
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm start
+//or
+yarn start
+```
 
-### Code Splitting
+### Run Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This is the steps that you need to do if you want to try to test the web app with the available use-case or testing scenario.
 
-### Analyzing the Bundle Size
+1. Open the folder from your Command Prompt, Powershell or other terminal
+2. Run the test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+npm test
+//or
+yarn test
+```
 
-### Making a Progressive Web App
+## Application Preview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Desktop                                                                                      | Mobile                                                                                      |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| <img src="./screenshots/login_desktop.png" alt="Login page for desktop">                     | <img src="./screenshots/login_mobile.jpg" alt="Login page for mobile"/>                     |
+| <img src="./screenshots/home_desktop.png" alt="Home page for desktop">                       | <img src="./screenshots/home_mobile.jpg" alt="Home page for mobile"/>                       |
+| <img src="./screenshots/search_desktop.png" alt="Search page for desktop">                   | <img src="./screenshots/search_mobile.jpg" alt="Search page for mobile"/>                   |
+| <img src="./screenshots/create_playlist_desktop.png" alt="Create playlist page for desktop"> | <img src="./screenshots/create_playlist_mobile.jpg" alt="Create playlist page for mobile"/> |
+| <img src="./screenshots/profile_desktop.png" alt="Home page for desktop">                    | <img src="./screenshots/profile_mobile.jpg" alt="Profile page for mobile"/>                 |
