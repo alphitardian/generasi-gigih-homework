@@ -48,7 +48,7 @@ function Login(): ReactElement {
   }, [token]);
 
   useEffect(() => {
-    if (token) {
+    if (token && isLoggedin === false) {
       fetchUserId(credentialProps)
         .then((response) => {
           dispatch(getUserId(response.data.id));
@@ -59,7 +59,7 @@ function Login(): ReactElement {
           dispatch(getProduct(response.data.product));
         })
         .catch((error) => {
-          if (error.response.data.error.status === 401) {
+          if (error.response.status === 401) {
             dispatch(getIsLoggedIn(false));
             localStorage.removeItem("userToken");
           }

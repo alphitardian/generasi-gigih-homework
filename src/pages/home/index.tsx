@@ -15,6 +15,8 @@ import {
   getUserPlaylist,
   getUserShows,
 } from "../../redux/track-slice";
+import { Redirect } from "react-router-dom";
+import { getIsLoggedIn } from "../../redux/credential-slice";
 
 function Home(): ReactElement {
   const { token, tokenType, isLoggedin } = useAppSelector(
@@ -34,18 +36,41 @@ function Home(): ReactElement {
     tokenType: tokenType,
   };
 
+  const handleError = () => {
+    dispatch(getIsLoggedIn(false));
+    localStorage.removeItem("userToken");
+    return <Redirect to="/" />;
+  };
+
   useEffect(() => {
     if (token && isLoggedin) {
-      getAllNewReleases(credentialProps).then((response) => {
-        dispatch(getNewReleases(response.data.albums.items));
-      });
-      getTopUserShows(credentialProps).then((response) => {
-        dispatch(getUserShows(response.data.items));
-      });
-
-      getUserPlaylists(credentialProps).then((response) => {
-        dispatch(getUserPlaylist(response.data.items));
-      });
+      getAllNewReleases(credentialProps)
+        .then((response) => {
+          dispatch(getNewReleases(response.data.albums.items));
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            handleError();
+          }
+        });
+      getTopUserShows(credentialProps)
+        .then((response) => {
+          dispatch(getUserShows(response.data.items));
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            handleError();
+          }
+        });
+      getUserPlaylists(credentialProps)
+        .then((response) => {
+          dispatch(getUserPlaylist(response.data.items));
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            handleError();
+          }
+        });
     }
   }, []);
 
