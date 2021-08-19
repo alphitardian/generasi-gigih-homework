@@ -1,21 +1,10 @@
 import React, { ReactElement } from "react";
 import style from "./style.module.css";
 
-interface CardTracks {
-  key: string;
-  imgUrl: string;
-  altImg: string;
-  artistName: string;
-  trackTitle: string;
-  btnName: string;
-  enableBtn: boolean;
-  onClick: () => void;
-}
-
 interface Props {
   title: string;
   query: string;
-  list: CardTracks[];
+  list: ReactElement;
 }
 
 function TrackList(props: Props): ReactElement {

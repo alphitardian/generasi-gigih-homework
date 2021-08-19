@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { render, screen } from "@testing-library/react";
 import TrackList from "..";
 import { playlist } from "../../../utils/Data";
 import CardContainer from "../../card-container";
 
-const MockCardTracks = (): any => {
+const MockCardTracks = (): ReactElement => {
   return (
     <div>
       {playlist.map((item) => {

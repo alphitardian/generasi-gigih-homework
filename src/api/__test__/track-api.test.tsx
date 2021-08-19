@@ -53,7 +53,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-const mockedResponse = (data: any) => {
+const mockedResponse = (data: unknown) => {
   return {
     data: data,
     status: 200,

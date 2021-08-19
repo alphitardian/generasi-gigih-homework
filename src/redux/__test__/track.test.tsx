@@ -1,4 +1,3 @@
-import { mockUserPlaylists } from "../../api/mock-data/api-mock-data";
 import reducer, {
   getTrackList,
   getSelectedList,
