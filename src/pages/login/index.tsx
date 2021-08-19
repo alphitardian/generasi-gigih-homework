@@ -49,14 +49,21 @@ function Login(): ReactElement {
 
   useEffect(() => {
     if (token) {
-      fetchUserId(credentialProps).then((response) => {
-        dispatch(getUserId(response.data.id));
-        dispatch(getImageUrl(response.data.images[0].url));
-        dispatch(getName(response.data.display_name));
-        dispatch(getCountry(response.data.country));
-        dispatch(getEmail(response.data.email));
-        dispatch(getProduct(response.data.product));
-      });
+      fetchUserId(credentialProps)
+        .then((response) => {
+          dispatch(getUserId(response.data.id));
+          dispatch(getImageUrl(response.data.images[0].url));
+          dispatch(getName(response.data.display_name));
+          dispatch(getCountry(response.data.country));
+          dispatch(getEmail(response.data.email));
+          dispatch(getProduct(response.data.product));
+        })
+        .catch((error) => {
+          if (error.response.data.error.status === 401) {
+            dispatch(getIsLoggedIn(false));
+            localStorage.removeItem("userToken");
+          }
+        });
       dispatch(getIsLoggedIn(true));
     }
   });

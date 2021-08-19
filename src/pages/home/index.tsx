@@ -35,13 +35,14 @@ function Home(): ReactElement {
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && isLoggedin) {
       getAllNewReleases(credentialProps).then((response) => {
         dispatch(getNewReleases(response.data.albums.items));
       });
       getTopUserShows(credentialProps).then((response) => {
         dispatch(getUserShows(response.data.items));
       });
+
       getUserPlaylists(credentialProps).then((response) => {
         dispatch(getUserPlaylist(response.data.items));
       });

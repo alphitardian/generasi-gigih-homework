@@ -10,7 +10,11 @@ import {
 } from "@ant-design/icons";
 import style from "./style.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getUserId, getToken } from "../../redux/credential-slice";
+import {
+  getUserId,
+  getToken,
+  getIsLoggedIn,
+} from "../../redux/credential-slice";
 
 interface Props {
   keyNav: string;
@@ -26,6 +30,7 @@ function Sidebar(props: Props): ReactElement {
   const handleLogout = () => {
     dispatch(getUserId(""));
     dispatch(getToken(""));
+    dispatch(getIsLoggedIn(false));
     localStorage.removeItem("userToken");
     location.reload();
   };
