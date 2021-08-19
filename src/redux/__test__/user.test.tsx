@@ -36,15 +36,13 @@ test("should able to add name", () => {
 });
 
 test("should able to add email", () => {
-  expect(reducer(initialState, getEmail("Ardianpramudya81@gmail.com"))).toEqual(
-    {
-      name: "",
-      imgUrl: "",
-      country: "",
-      product: "",
-      email: "Ardianpramudya81@gmail.com",
-    }
-  );
+  expect(reducer(initialState, getEmail("example@gmail.com"))).toEqual({
+    name: "",
+    imgUrl: "",
+    country: "",
+    product: "",
+    email: "example@gmail.com",
+  });
 });
 
 test("should able to add product", () => {
